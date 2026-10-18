@@ -6,14 +6,15 @@
   <title>Troll Modz</title>
   <style>
     :root {
-      --bg: #05070a;
-      --card-bg: #0b1118;
-      --border: #152232;
+      --bg: #03060a;
+      --card-bg: #090e15;
+      --card-inner: #05080d;
+      --border: #141f2d;
+      --border-cyan: rgba(0, 242, 254, 0.3);
       --cyan: #00f2fe;
-      --cyan-dim: rgba(0, 242, 254, 0.2);
-      --cyan-glow: rgba(0, 242, 254, 0.4);
+      --cyan-glow: rgba(0, 242, 254, 0.35);
       --text: #f0f6fc;
-      --text-muted: #6e7f91;
+      --text-muted: #647587;
       --green: #00ff88;
     }
 
@@ -33,194 +34,76 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px 14px;
+      overflow-x: hidden;
     }
 
-    /* Floating Cyber Card */
-    .cyber-card {
+    .hidden {
+      display: none !important;
+    }
+
+    /* =========================================
+       1. FRONT / LOGIN SCREEN (Centered Card)
+       ========================================= */
+    #frontLoginContainer {
       width: 100%;
-      max-width: 390px;
+      max-width: 375px;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .front-card {
+      width: 100%;
       background: var(--card-bg);
-      border: 1px solid rgba(0, 242, 254, 0.25);
+      border: 1px solid var(--border-cyan);
       border-radius: 16px;
-      padding: 24px 20px;
-      box-shadow: 0 0 35px var(--cyan-dim), inset 0 0 15px rgba(0, 242, 254, 0.05);
+      padding: 30px 22px;
+      text-align: center;
+      box-shadow: 0 0 32px var(--cyan-glow), inset 0 0 15px rgba(0, 242, 254, 0.04);
       position: relative;
     }
 
-    /* Logo & Title */
-    .title-wrap {
-      text-align: center;
-      margin-bottom: 22px;
-    }
-
-    .main-title {
-      font-size: 22px;
+    .front-title {
+      font-size: 23px;
       font-weight: 900;
-      letter-spacing: 2px;
+      letter-spacing: 2.5px;
       color: var(--cyan);
       text-shadow: 0 0 14px var(--cyan-glow);
-      display: inline-block;
       cursor: pointer;
+      display: inline-block;
+      margin-bottom: 6px;
     }
 
-    .subtitle {
+    .front-subtitle {
       font-size: 11px;
       letter-spacing: 1.5px;
       color: var(--text-muted);
-      margin-top: 5px;
+      margin-bottom: 22px;
       text-transform: uppercase;
     }
 
-    /* Key Input Screen */
-    .input-field {
+    .front-input {
       width: 100%;
       padding: 14px;
-      background: #06090d;
+      background: var(--card-inner);
       border: 1px solid var(--cyan);
-      border-radius: 10px;
+      border-radius: 8px;
       color: var(--cyan);
       font-size: 14px;
       letter-spacing: 2px;
       text-align: center;
       margin-bottom: 16px;
       outline: none;
-      box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.15);
+      box-shadow: inset 0 0 12px rgba(0, 242, 254, 0.18);
     }
 
-    /* Status Card */
-    .status-panel {
-      background: #06090e;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-bottom: 18px;
-      font-size: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .status-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .status-row span:first-child {
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .status-row span:last-child {
-      font-weight: 700;
-      color: var(--cyan);
-    }
-
-    /* Toggle Items */
-    .toggle-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 22px;
-    }
-
-    .toggle-item {
-      background: #06090e;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 11px 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: border-color 0.2s;
-    }
-
-    .toggle-item:hover {
-      border-color: rgba(0, 242, 254, 0.3);
-    }
-
-    .toggle-label {
-      font-size: 13.5px;
-      font-weight: 600;
-    }
-
-    /* Sub-options for Hifi */
-    .sub-toggle-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding-left: 18px;
-      border-left: 2px solid var(--cyan);
-      margin: 4px 0 6px 10px;
-    }
-
-    .sub-toggle-item {
-      background: #080d14;
-      border: 1px dashed rgba(0, 242, 254, 0.3);
-      border-radius: 7px;
-      padding: 9px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .sub-toggle-label {
-      font-size: 12px;
-      color: #9ab0c5;
-    }
-
-    /* Cyber Switch */
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 44px;
-      height: 23px;
-    }
-
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      inset: 0;
-      background-color: #1a2533;
-      border-radius: 24px;
-      transition: .3s;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 17px;
-      width: 17px;
-      left: 3px;
-      bottom: 3px;
-      background-color: #ffffff;
-      border-radius: 50%;
-      transition: .3s;
-    }
-
-    input:checked + .slider {
-      background-color: var(--cyan);
-      box-shadow: 0 0 10px var(--cyan);
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(21px);
-      background-color: #05070a;
-    }
-
-    /* Action Buttons */
-    .btn {
+    /* Common Buttons */
+    .btn-action {
       width: 100%;
-      padding: 13px;
+      padding: 14px;
       background: var(--cyan);
-      color: #040608;
+      color: #04070a;
       font-weight: 800;
       font-size: 13.5px;
       letter-spacing: 1.5px;
@@ -231,58 +114,344 @@
       transition: 0.15s;
     }
 
-    .btn:active {
+    .btn-action:active {
       transform: scale(0.98);
     }
 
-    .btn-secondary {
-      background: transparent;
+    /* =========================================
+       2. MAIN APP CONTAINER (Inside Full View)
+       ========================================= */
+    #mainAppContainer {
+      width: 100%;
+      max-width: 410px;
+      height: 100vh;
+      background: var(--card-inner);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top App Header */
+    .app-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5, 8, 13, 0.95);
+      z-index: 10;
+    }
+
+    .app-logo {
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan-glow);
+      cursor: pointer;
+    }
+
+    .app-badge {
+      font-size: 11px;
+      font-weight: 700;
       color: var(--text-muted);
-      box-shadow: none;
-      margin-top: 6px;
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 4px;
     }
 
-    .hidden {
-      display: none !important;
-    }
-
-    /* Admin Modal */
-    .admin-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(7, 11, 16, 0.98);
-      border-radius: 16px;
+    /* Scrollable App Body */
+    .app-body {
+      flex: 1;
+      overflow-y: auto;
       padding: 18px;
       display: flex;
       flex-direction: column;
-      z-index: 50;
-      overflow-y: auto;
     }
 
-    .admin-overlay h3 {
+    /* HOME TAB */
+    .conn-status {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+    }
+
+    .radar-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0 24px 0;
+    }
+
+    .radar-outer {
+      width: 175px;
+      height: 175px;
+      border: 2px dashed rgba(0, 242, 254, 0.35);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .radar-core {
+      width: 125px;
+      height: 125px;
+      border: 1px solid var(--cyan);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle, rgba(0,242,254,0.18) 0%, rgba(5,8,13,0.9) 75%);
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.2);
+    }
+
+    .radar-triangle {
+      width: 0;
+      height: 0;
+      border-top: 13px solid transparent;
+      border-bottom: 13px solid transparent;
+      border-left: 20px solid var(--cyan);
+      margin-left: 4px;
+      filter: drop-shadow(0 0 7px var(--cyan));
+    }
+
+    .info-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .stat-tile {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .stat-lbl {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .stat-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    /* FEATURES TAB (Screenshot 3 Look) */
+    .sec-subhead {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.8px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .feat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 15px;
+      margin-bottom: 11px;
+      transition: border-color 0.2s;
+    }
+
+    .feat-card.active-hifi {
+      border-color: var(--border-cyan);
+    }
+
+    .feat-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .feat-heading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feat-num {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--cyan);
+    }
+
+    .feat-txt {
+      font-size: 13.5px;
+      font-weight: 700;
+    }
+
+    .feat-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Sub-toggles inside Hifi */
+    .sub-box {
+      margin-top: 12px;
+      padding-top: 11px;
+      border-top: 1px dashed rgba(0, 242, 254, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .sub-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-inner);
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .sub-txt {
+      font-size: 12px;
+      color: #9cb0c3;
+    }
+
+    /* Switches */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: #17222f;
+      border-radius: 24px;
+      transition: .25s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #fff;
+      border-radius: 50%;
+      transition: .25s;
+    }
+
+    input:checked + .slider {
+      background-color: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+      background-color: #03060a;
+    }
+
+    /* Bottom Navbar */
+    .bottom-bar {
+      height: 62px;
+      background: #04070c;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .nav-btn svg {
+      width: 19px;
+      height: 19px;
+      fill: currentColor;
+    }
+
+    .nav-btn.active {
+      color: var(--cyan);
+      text-shadow: 0 0 8px rgba(0, 242, 254, 0.4);
+    }
+
+    /* =========================================
+       3. HIDDEN ADMIN PANEL
+       ========================================= */
+    .admin-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 6, 10, 0.98);
+      z-index: 999;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      max-width: 410px;
+      margin: auto;
+    }
+
+    .admin-modal h3 {
       color: var(--cyan);
       font-size: 16px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       text-align: center;
+      letter-spacing: 1px;
     }
 
-    .admin-field {
+    .adm-field {
       margin-bottom: 9px;
       display: flex;
       flex-direction: column;
       gap: 3px;
     }
 
-    .admin-field label {
+    .adm-field label {
       font-size: 10px;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 1px;
     }
 
-    .admin-field input {
+    .adm-field input {
       padding: 9px 12px;
-      background: #05070a;
+      background: #060a10;
       border: 1px solid var(--border);
       border-radius: 6px;
       color: #fff;
@@ -290,230 +459,352 @@
       outline: none;
     }
 
-    .admin-field input:focus {
+    .adm-field input:focus {
       border-color: var(--cyan);
     }
   </style>
 </head>
 <body>
 
-  <div class="cyber-card">
+  <!-- 1. FRONT / LOGIN SCREEN (Centered Glowing Card) -->
+  <div id="frontLoginContainer">
+    <div class="front-card">
+      <div class="front-title" onclick="handleSecretTap()">TROLL MODZ</div>
+      <div class="front-subtitle">ENTER YOUR ACCESS KEY</div>
+
+      <input type="text" id="keyField" class="front-input" placeholder="XXXX-XXXX-XXXX-XXXX">
+      <button class="btn-action" onclick="unlockDashboard()">UNLOCK ACCESS</button>
+      <p id="errNotice" style="color: #ff4757; font-size: 11px; margin-top: 10px;" class="hidden">Invalid Key! Try again.</p>
+    </div>
+  </div>
+
+  <!-- 2. MAIN APP CONTAINER (Opens after entering key) -->
+  <div id="mainAppContainer" class="hidden">
     
-    <!-- Title (6-Click trigger for Admin) -->
-    <div class="title-wrap">
-      <div class="main-title" onclick="handleTitleClick()">TROLL MODZ</div>
-      <div class="subtitle" id="topSubtitle">ENTER YOUR ACCESS KEY</div>
+    <!-- Top Bar inside App -->
+    <div class="app-topbar">
+      <div class="app-logo" onclick="handleSecretTap()">TROLL MODZ</div>
+      <div class="app-badge">EN</div>
     </div>
 
-    <!-- 1. AUTH SCREEN -->
-    <div id="authSection">
-      <input type="text" id="keyInput" class="input-field" placeholder="XXXX-XXXX-XXXX-XXXX">
-      <button class="btn" onclick="validateKey()">UNLOCK ACCESS</button>
-      <p id="errorMsg" style="color: #ff4757; font-size: 12px; text-align: center; margin-top: 10px;" class="hidden">Invalid Key. Contact Admin.</p>
-    </div>
+    <!-- App Body Content -->
+    <div class="app-body">
 
-    <!-- 2. DASHBOARD & TOGGLES SCREEN -->
-    <div id="dashSection" class="hidden">
-      
-      <div class="status-panel">
-        <div class="status-row">
-          <span>Key:</span>
-          <span>TROLL-4E3B-545C-E7AA</span>
-        </div>
-        <div class="status-row">
-          <span>Status:</span>
-          <span style="color: var(--green);">CONNECTED</span>
-        </div>
-        <div class="status-row">
-          <span>Expiry:</span>
-          <span>LIFETIME</span>
-        </div>
-      </div>
-
-      <!-- Toggles List -->
-      <div class="toggle-list">
-        
-        <div class="toggle-item">
-          <span class="toggle-label" id="lbl1"></span>
-          <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+      <!-- HOME TAB -->
+      <div id="tabHome">
+        <div class="conn-status">
+          <span style="color: var(--green);">● CONNECTED</span>
+          <span style="color: var(--text-muted);">NEVER DISCONNECT</span>
         </div>
 
-        <div class="toggle-item">
-          <span class="toggle-label" id="lbl2"></span>
-          <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-        </div>
-
-        <div class="toggle-item">
-          <span class="toggle-label" id="lbl3"></span>
-          <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-        </div>
-
-        <div class="toggle-item">
-          <span class="toggle-label" id="lbl4"></span>
-          <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-        </div>
-
-        <!-- 5. Hifi Toggle with Dropdown Sub-toggles -->
-        <div class="toggle-item">
-          <span class="toggle-label" id="lbl5"></span>
-          <label class="switch">
-            <input type="checkbox" id="hifiMaster" onchange="toggleHifiSub(this)">
-            <span class="slider"></span>
-          </label>
-        </div>
-
-        <!-- Hidden Sub-toggles under Hifi -->
-        <div id="hifiSubGroup" class="sub-toggle-group hidden">
-          <div class="sub-toggle-item">
-            <span class="sub-toggle-label" id="lblSub1"></span>
-            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-          </div>
-          <div class="sub-toggle-item">
-            <span class="sub-toggle-label" id="lblSub2"></span>
-            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+        <div class="radar-wrap">
+          <div class="radar-outer">
+            <div class="radar-core">
+              <div class="radar-triangle"></div>
+            </div>
           </div>
         </div>
 
-        <div class="toggle-item">
-          <span class="toggle-label" id="lbl6"></span>
-          <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+        <div class="info-bar">
+          <span style="color: var(--text-muted);">KEY</span>
+          <span style="font-weight: 700; color: var(--cyan);">TROLL-4E3B-545C-E7AA</span>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-tile">
+            <div class="stat-lbl">EXPIRY</div>
+            <div class="stat-val">LIFETIME</div>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-lbl">DEVICE</div>
+            <div class="stat-val" style="color: var(--green);">REGISTERED</div>
+          </div>
+        </div>
+
+        <button class="btn-action" onclick="openHappApp()">+ ADD SUBSCRIPTION</button>
+      </div>
+
+      <!-- FEATURES TAB (6 Toggles + Hifi Sub-toggles) -->
+      <div id="tabFeatures" class="hidden">
+        <div class="sec-subhead">
+          <span>CHANGES APPLY FROM NEXT MATCH</span>
+          <span style="color: var(--cyan); font-weight: bold;">6/6</span>
+        </div>
+
+        <!-- 01 -->
+        <div class="feat-card">
+          <div class="feat-top">
+            <div class="feat-heading">
+              <span class="feat-num">01</span>
+              <span class="feat-txt" id="fName1"></span>
+            </div>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+          </div>
+          <div class="feat-desc">Marks and syncs sound vibration frequency.</div>
+        </div>
+
+        <!-- 02 -->
+        <div class="feat-card">
+          <div class="feat-top">
+            <div class="feat-heading">
+              <span class="feat-num">02</span>
+              <span class="feat-txt" id="fName2"></span>
+            </div>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+          </div>
+          <div class="feat-desc">Visual display glitch trigger mode.</div>
+        </div>
+
+        <!-- 03 -->
+        <div class="feat-card">
+          <div class="feat-top">
+            <div class="feat-heading">
+              <span class="feat-num">03</span>
+              <span class="feat-txt" id="fName3"></span>
+            </div>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+          </div>
+          <div class="feat-desc">Simulated fake network ping latency lag.</div>
+        </div>
+
+        <!-- 04 -->
+        <div class="feat-card">
+          <div class="feat-top">
+            <div class="feat-heading">
+              <span class="feat-num">04</span>
+              <span class="feat-txt" id="fName4"></span>
+            </div>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+          </div>
+          <div class="feat-desc">Reverses invert swipe calibration.</div>
+        </div>
+
+        <!-- 05 HIFI -->
+        <div class="feat-card" id="cardHifi">
+          <div class="feat-top">
+            <div class="feat-heading">
+              <span class="feat-num">05</span>
+              <span class="feat-txt" id="fName5"></span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="hifiCheck" onchange="toggleHifiMode(this)">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="feat-desc">High-frequency equalized module.</div>
+
+          <!-- Hidden 2 sub-toggles under Hifi -->
+          <div id="hifiExpandArea" class="sub-box hidden">
+            <div class="sub-row">
+              <span class="sub-txt" id="fSubName1"></span>
+              <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+            </div>
+            <div class="sub-row">
+              <span class="sub-txt" id="fSubName2"></span>
+              <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 -->
+        <div class="feat-card">
+          <div class="feat-top">
+            <div class="feat-heading">
+              <span class="feat-num">06</span>
+              <span class="feat-txt" id="fName6"></span>
+            </div>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+          </div>
+          <div class="feat-desc">Ghost tap random touch simulator.</div>
         </div>
 
       </div>
 
-      <button class="btn" onclick="openHappApp()">+ ADD SUBSCRIPTION</button>
+      <!-- MANAGE TAB -->
+      <div id="tabManage" class="hidden">
+        <div class="sec-subhead"><span>SYSTEM LOGS & APP CONFIG</span></div>
+        <div class="info-bar">
+          <span style="color: var(--text-muted);">Troll Engine</span>
+          <span style="color: var(--cyan);">v3.5 Final</span>
+        </div>
+        <div class="info-bar">
+          <span style="color: var(--text-muted);">Protocol</span>
+          <span style="color: var(--green);">Hysteria TLS Ready</span>
+        </div>
+        <div class="info-bar">
+          <span style="color: var(--text-muted);">Client License</span>
+          <span>Verified Valid</span>
+        </div>
+      </div>
+
     </div>
 
-    <!-- 3. HIDDEN ADMIN PANEL -->
-    <div id="adminPanel" class="admin-overlay hidden">
-      <h3>Admin Panel</h3>
-      
-      <div class="admin-field"><label>Toggle 1</label><input type="text" id="adm1"></div>
-      <div class="admin-field"><label>Toggle 2</label><input type="text" id="adm2"></div>
-      <div class="admin-field"><label>Toggle 3</label><input type="text" id="adm3"></div>
-      <div class="admin-field"><label>Toggle 4</label><input type="text" id="adm4"></div>
-      <div class="admin-field"><label>Toggle 5 (Main)</label><input type="text" id="adm5"></div>
-      <div class="admin-field"><label>Hifi Sub-Toggle 1</label><input type="text" id="admSub1"></div>
-      <div class="admin-field"><label>Hifi Sub-Toggle 2</label><input type="text" id="admSub2"></div>
-      <div class="admin-field"><label>Toggle 6</label><input type="text" id="adm6"></div>
-
-      <button class="btn" style="margin-top: 10px;" onclick="saveAdminData()">SAVE CHANGES</button>
-      <button class="btn btn-secondary" onclick="closeAdmin()">CANCEL</button>
+    <!-- Bottom Navigation Bar inside App -->
+    <div class="bottom-bar">
+      <div class="nav-btn active" id="navHome" onclick="gotoTab('home')">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>HOME</span>
+      </div>
+      <div class="nav-btn" id="navFeatures" onclick="gotoTab('features')">
+        <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+        <span>FEATURES</span>
+      </div>
+      <div class="nav-btn" id="navManage" onclick="gotoTab('manage')">
+        <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        <span>MANAGE</span>
+      </div>
     </div>
 
   </div>
 
+  <!-- 3. HIDDEN ADMIN PANEL (Opens on 6-clicks) -->
+  <div id="adminPanel" class="admin-modal hidden">
+    <h3>Admin Panel (Config)</h3>
+    <div class="adm-field"><label>Toggle 01</label><input type="text" id="inp1"></div>
+    <div class="adm-field"><label>Toggle 02</label><input type="text" id="inp2"></div>
+    <div class="adm-field"><label>Toggle 03</label><input type="text" id="inp3"></div>
+    <div class="adm-field"><label>Toggle 04</label><input type="text" id="inp4"></div>
+    <div class="adm-field"><label>Toggle 05 (Main)</label><input type="text" id="inp5"></div>
+    <div class="adm-field"><label>Hifi Sub-Toggle 1</label><input type="text" id="inpSub1"></div>
+    <div class="adm-field"><label>Hifi Sub-Toggle 2</label><input type="text" id="inpSub2"></div>
+    <div class="adm-field"><label>Toggle 06</label><input type="text" id="inp6"></div>
+
+    <button class="btn-action" style="margin-top: 12px;" onclick="saveConfig()">SAVE CHANGES</button>
+    <button class="btn-action" style="background: transparent; color: var(--text-muted); box-shadow: none; margin-top: 6px;" onclick="closeConfig()">CANCEL</button>
+  </div>
+
   <script>
-    const TARGET_KEY = "TROLL-4E3B-545C-E7AA";
+    const VALID_KEY = "TROLL-4E3B-545C-E7AA";
     const ADMIN_PASS = "admin123";
 
     // Default Configuration
-    const defaultConfig = {
-      t1: "Prank Sound Trigger",
-      t2: "Screen Flicker Mode",
-      t3: "Fake Ping Lag",
+    const initialConfig = {
+      t1: "Sound Vibration Trigger",
+      t2: "Screen Glitch Mode",
+      t3: "Fake 999ms Ping",
       t4: "Invert Controls",
       t5: "Hifi",
-      sub1: "Ultra Audio Boost",
-      sub2: "Surround Echo",
-      t6: "Ghost Tap Mode"
+      sub1: "Bass Frequency Booster",
+      sub2: "Surround 3D Echo",
+      t6: "Ghost Tap Simulator"
     };
 
-    let config = JSON.parse(localStorage.getItem('troll_cfg')) || defaultConfig;
+    let cfg = JSON.parse(localStorage.getItem('troll_v3_store')) || initialConfig;
 
-    function applyLabels() {
-      document.getElementById('lbl1').innerText = config.t1;
-      document.getElementById('lbl2').innerText = config.t2;
-      document.getElementById('lbl3').innerText = config.t3;
-      document.getElementById('lbl4').innerText = config.t4;
-      document.getElementById('lbl5').innerText = config.t5;
-      document.getElementById('lblSub1').innerText = config.sub1;
-      document.getElementById('lblSub2').innerText = config.sub2;
-      document.getElementById('lbl6').innerText = config.t6;
+    function renderAllLabels() {
+      document.getElementById('fName1').innerText = cfg.t1;
+      document.getElementById('fName2').innerText = cfg.t2;
+      document.getElementById('fName3').innerText = cfg.t3;
+      document.getElementById('fName4').innerText = cfg.t4;
+      document.getElementById('fName5').innerText = cfg.t5;
+      document.getElementById('fSubName1').innerText = cfg.sub1;
+      document.getElementById('fSubName2').innerText = cfg.sub2;
+      document.getElementById('fName6').innerText = cfg.t6;
     }
 
-    applyLabels();
+    renderAllLabels();
 
-    // Key Validation
-    function validateKey() {
-      const input = document.getElementById('keyInput').value.trim();
-      if (input === TARGET_KEY) {
-        document.getElementById('authSection').classList.add('hidden');
-        document.getElementById('dashSection').classList.remove('hidden');
-        document.getElementById('topSubtitle').innerText = "SYSTEM ACTIVE";
-        document.getElementById('errorMsg').classList.add('hidden');
+    // Unlock Action from Front Page
+    function unlockDashboard() {
+      const val = document.getElementById('keyField').value.trim();
+      if (val === VALID_KEY) {
+        document.getElementById('frontLoginContainer').classList.add('hidden');
+        document.getElementById('mainAppContainer').classList.remove('hidden');
+        gotoTab('home');
       } else {
-        document.getElementById('errorMsg').classList.remove('hidden');
+        document.getElementById('errNotice').classList.remove('hidden');
       }
     }
 
-    // Expand / Collapse Hifi sub-toggles
-    function toggleHifiSub(cb) {
-      const sub = document.getElementById('hifiSubGroup');
+    // App Tab Navigation
+    function gotoTab(tabName) {
+      document.getElementById('tabHome').classList.add('hidden');
+      document.getElementById('tabFeatures').classList.add('hidden');
+      document.getElementById('tabManage').classList.add('hidden');
+
+      document.getElementById('navHome').classList.remove('active');
+      document.getElementById('navFeatures').classList.remove('active');
+      document.getElementById('navManage').classList.remove('active');
+
+      if (tabName === 'home') {
+        document.getElementById('tabHome').classList.remove('hidden');
+        document.getElementById('navHome').classList.add('active');
+      } else if (tabName === 'features') {
+        document.getElementById('tabFeatures').classList.remove('hidden');
+        document.getElementById('navFeatures').classList.add('active');
+      } else if (tabName === 'manage') {
+        document.getElementById('tabManage').classList.remove('hidden');
+        document.getElementById('navManage').classList.add('active');
+      }
+    }
+
+    // Hifi Sub-toggle Expand/Collapse
+    function toggleHifiMode(cb) {
+      const box = document.getElementById('hifiExpandArea');
+      const card = document.getElementById('cardHifi');
       if (cb.checked) {
-        sub.classList.remove('hidden');
+        box.classList.remove('hidden');
+        card.classList.add('active-hifi');
       } else {
-        sub.classList.add('hidden');
+        box.classList.add('hidden');
+        card.classList.remove('active-hifi');
       }
     }
 
-    // Happ App Deep Link
+    // Add Subscription App trigger
     function openHappApp() {
       window.location.href = "happ://add/trollmodz-lifetime-config";
     }
 
-    // 6 Consecutive Clicks Detection for Admin
-    let clickCount = 0;
-    let clickTimer = null;
+    // 6-Clicks Secret Admin Handler
+    let taps = 0;
+    let tapResetTimer = null;
 
-    function handleTitleClick() {
-      clickCount++;
-      clearTimeout(clickTimer);
+    function handleSecretTap() {
+      taps++;
+      clearTimeout(tapResetTimer);
+      tapResetTimer = setTimeout(() => { taps = 0; }, 1600);
 
-      clickTimer = setTimeout(() => {
-        clickCount = 0;
-      }, 1500); // 1.5 seconds me 6 clicks hone chahiye
-
-      if (clickCount >= 6) {
-        clickCount = 0;
-        const entered = prompt("Enter Admin Password:");
-        if (entered === ADMIN_PASS) {
-          openAdminModal();
-        } else if (entered !== null) {
+      if (taps >= 6) {
+        taps = 0;
+        const pass = prompt("Enter Admin Password:");
+        if (pass === ADMIN_PASS) {
+          openConfigModal();
+        } else if (pass !== null) {
           alert("Incorrect Password!");
         }
       }
     }
 
-    function openAdminModal() {
-      document.getElementById('adm1').value = config.t1;
-      document.getElementById('adm2').value = config.t2;
-      document.getElementById('adm3').value = config.t3;
-      document.getElementById('adm4').value = config.t4;
-      document.getElementById('adm5').value = config.t5;
-      document.getElementById('admSub1').value = config.sub1;
-      document.getElementById('admSub2').value = config.sub2;
-      document.getElementById('adm6').value = config.t6;
+    function openConfigModal() {
+      document.getElementById('inp1').value = cfg.t1;
+      document.getElementById('inp2').value = cfg.t2;
+      document.getElementById('inp3').value = cfg.t3;
+      document.getElementById('inp4').value = cfg.t4;
+      document.getElementById('inp5').value = cfg.t5;
+      document.getElementById('inpSub1').value = cfg.sub1;
+      document.getElementById('inpSub2').value = cfg.sub2;
+      document.getElementById('inp6').value = cfg.t6;
 
       document.getElementById('adminPanel').classList.remove('hidden');
     }
 
-    function saveAdminData() {
-      config.t1 = document.getElementById('adm1').value;
-      config.t2 = document.getElementById('adm2').value;
-      config.t3 = document.getElementById('adm3').value;
-      config.t4 = document.getElementById('adm4').value;
-      config.t5 = document.getElementById('adm5').value;
-      config.sub1 = document.getElementById('admSub1').value;
-      config.sub2 = document.getElementById('admSub2').value;
-      config.t6 = document.getElementById('adm6').value;
+    function saveConfig() {
+      cfg.t1 = document.getElementById('inp1').value;
+      cfg.t2 = document.getElementById('inp2').value;
+      cfg.t3 = document.getElementById('inp3').value;
+      cfg.t4 = document.getElementById('inp4').value;
+      cfg.t5 = document.getElementById('inp5').value;
+      cfg.sub1 = document.getElementById('inpSub1').value;
+      cfg.sub2 = document.getElementById('inpSub2').value;
+      cfg.t6 = document.getElementById('inp6').value;
 
-      localStorage.setItem('troll_cfg', JSON.stringify(config));
-      applyLabels();
-      closeAdmin();
+      localStorage.setItem('troll_v3_store', JSON.stringify(cfg));
+      renderAllLabels();
+      closeConfig();
     }
 
-    function closeAdmin() {
+    function closeConfig() {
       document.getElementById('adminPanel').classList.add('hidden');
     }
   </script>
