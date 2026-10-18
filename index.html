@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Troll Modz</title>
+  <style>
+    :root {
+      --bg-color: #0b0f14;
+      --card-bg: #121820;
+      --cyan: #00f2fe;
+      --cyan-glow: rgba(0, 242, 254, 0.35);
+      --text: #ffffff;
+      --text-dim: #7d8b99;
+      --border: #1e293b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 15px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 380px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 0 25px var(--cyan-glow);
+      text-align: center;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan);
+      margin-bottom: 25px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .input-box {
+      width: 100%;
+      padding: 12px;
+      background: #080c10;
+      border: 1px solid var(--cyan);
+      border-radius: 8px;
+      color: var(--cyan);
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      text-align: center;
+      margin-bottom: 15px;
+      outline: none;
+      box-shadow: inset 0 0 8px rgba(0, 242, 254, 0.2);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 13px;
+      background: var(--cyan);
+      color: #05080c;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      letter-spacing: 1px;
+      box-shadow: 0 0 15px var(--cyan);
+      transition: 0.2s;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Dashboard Styles */
+    .status-card {
+      background: #080c10;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .status-card div {
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .status-card span {
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    .toggle-group {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .toggle-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #080c10;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .toggle-item span {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #242f3d;
+      transition: .3s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+      background-color: #05080c;
+    }
+
+    /* Admin Modal */
+    .modal {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(11, 15, 20, 0.95);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .modal input {
+      padding: 8px;
+      background: #080c10;
+      border: 1px solid var(--border);
+      color: #fff;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header (Logo click triggers Admin Prompt) -->
+    <div class="logo" id="logoTitle" onclick="openAdminPrompt()">TROLL MODZ</div>
+
+    <!-- 1. KEY SCREEN -->
+    <div id="authScreen">
+      <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 20px;">ENTER YOUR ACCESS KEY</p>
+      <input type="text" id="accessKey" class="input-box" placeholder="XXXX-XXXX-XXXX-XXXX">
+      <button class="btn" onclick="validateKey()">UNLOCK ACCESS</button>
+      <p id="errorMsg" style="color: #ff4d4d; font-size: 12px; margin-top: 10px;" class="hidden">Invalid Key! Try again.</p>
+    </div>
+
+    <!-- 2. MAIN DASHBOARD SCREEN -->
+    <div id="dashScreen" class="hidden">
+      <div class="status-card">
+        <div>Key: <span id="displayKey">TROLL-4E3B-545C-E7AA</span></div>
+        <div>Status: <span style="color: #00ff88;">CONNECTED</span></div>
+        <div>Expiry: <span>LIFETIME</span></div>
+      </div>
+
+      <!-- Editable Toggles -->
+      <div class="toggle-group" id="togglesContainer">
+        <!-- Dynamic Toggles rendered by JS -->
+      </div>
+
+      <!-- Add Subscription Button -->
+      <button class="btn" onclick="openSubscriptionApp()">+ ADD SUBSCRIPTION</button>
+    </div>
+
+    <!-- 3. HIDDEN ADMIN PANEL MODAL -->
+    <div id="adminPanel" class="modal hidden">
+      <h3 style="color: var(--cyan); margin-bottom: 10px;">Admin Settings</h3>
+      <label style="font-size: 12px; text-align: left;">Toggle 1 Label</label>
+      <input type="text" id="t1Input">
+      <label style="font-size: 12px; text-align: left;">Toggle 2 Label</label>
+      <input type="text" id="t2Input">
+      <label style="font-size: 12px; text-align: left;">Toggle 3 Label</label>
+      <input type="text" id="t3Input">
+      <button class="btn" style="margin-top: 10px;" onclick="saveAdminChanges()">SAVE</button>
+      <button class="btn" style="background: transparent; color: var(--text-dim); box-shadow: none;" onclick="closeAdmin()">CANCEL</button>
+    </div>
+  </div>
+
+  <script>
+    const VALID_KEY = "TROLL-4E3B-545C-E7AA";
+    const ADMIN_PASS = "admin123";
+
+    // Default Labels
+    let labels = JSON.parse(localStorage.getItem('troll_labels')) || [
+      "Prank Sound Trigger",
+      "Screen Flicker Mode",
+      "Fake Ping Lag"
+    ];
+
+    function renderToggles() {
+      const container = document.getElementById('togglesContainer');
+      container.innerHTML = '';
+      labels.forEach((label, index) => {
+        container.innerHTML += `
+          <div class="toggle-item">
+            <span>${label}</span>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+        `;
+      });
+    }
+
+    function validateKey() {
+      const input = document.getElementById('accessKey').value.trim();
+      if (input === VALID_KEY) {
+        document.getElementById('authScreen').classList.add('hidden');
+        document.getElementById('dashScreen').classList.remove('hidden');
+        renderToggles();
+      } else {
+        document.getElementById('errorMsg').classList.remove('hidden');
+      }
+    }
+
+    function openSubscriptionApp() {
+      // Happ app custom deep link ya intent scheme
+      const customScheme = "happ://add/trollmodz-lifetime-config";
+      window.location.href = customScheme;
+    }
+
+    // Hidden Admin Prompt
+    function openAdminPrompt() {
+      const enteredPass = prompt("Enter Admin Password:");
+      if (enteredPass === ADMIN_PASS) {
+        document.getElementById('t1Input').value = labels[0] || '';
+        document.getElementById('t2Input').value = labels[1] || '';
+        document.getElementById('t3Input').value = labels[2] || '';
+        document.getElementById('adminPanel').classList.remove('hidden');
+      } else if (enteredPass !== null) {
+        alert("Wrong Password!");
+      }
+    }
+
+    function saveAdminChanges() {
+      labels[0] = document.getElementById('t1Input').value;
+      labels[1] = document.getElementById('t2Input').value;
+      labels[2] = document.getElementById('t3Input').value;
+      localStorage.setItem('troll_labels', JSON.stringify(labels));
+      renderToggles();
+      closeAdmin();
+    }
+
+    function closeAdmin() {
+      document.getElementById('adminPanel').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
