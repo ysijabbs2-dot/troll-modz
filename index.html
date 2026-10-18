@@ -10,7 +10,9 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{--bg:#080a0f;--card:#11151d;--border:#252c38;--text:#f4f6fa;--muted:#8a94a6;--accent:#00e5ff;--green:#00e676;--red:#ff3d57}
 body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh}
-button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
 .app{width:100%;max-width:480px;min-height:100vh;margin:auto;padding:22px 16px 100px}
 .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
 .brand{font-size:23px;font-weight:900;letter-spacing:1px;cursor:pointer}
@@ -25,7 +27,8 @@ button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
 .section-title small{color:var(--muted);font-size:11px;font-weight:normal}
 .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:17px;margin-bottom:12px}
 .feature-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.feature-info{min-width:0}.feature-name{font-size:13px;font-weight:800;letter-spacing:.3px}
+.feature-info{min-width:0}
+.feature-name{font-size:13px;font-weight:800;letter-spacing:.3px}
 .feature-description{color:var(--muted);font-size:11px;margin-top:6px;line-height:1.5}
 .switch{flex-shrink:0;position:relative;width:44px;height:25px}
 .switch input{width:0;height:0;opacity:0}
@@ -53,7 +56,8 @@ button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
 .error{color:var(--red);font-size:12px;margin-top:12px}
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;padding:12px 10px calc(12px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;background:rgba(12,15,22,.97);border-top:1px solid var(--border);z-index:20}
 .nav-item{flex:1;background:transparent;border:none;color:var(--muted);padding:8px 2px;font-size:11px;font-weight:bold}
-.nav-item.active{color:var(--accent)}.nav-icon{display:block;font-size:18px;margin-bottom:5px}
+.nav-item.active{color:var(--accent)}
+.nav-icon{display:block;font-size:18px;margin-bottom:5px}
 .admin-panel{border:1px solid #704a17;background:#19150f;border-radius:14px;padding:18px;margin-top:25px}
 .admin-panel h3{color:#ffbf55;margin-bottom:15px;font-size:14px}
 .admin-button{width:100%;padding:12px;border:1px solid #704a17;background:#302311;color:#ffbf55;border-radius:9px;font-weight:bold;margin-top:8px}
@@ -64,6 +68,7 @@ button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
 
 <body>
 
+<!-- LOGIN -->
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
     <div class="login-logo">TROLL <span>MODZ</span></div>
@@ -74,6 +79,7 @@ button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
   </div>
 </div>
 
+<!-- MAIN APP -->
 <main class="app hidden" id="mainApp">
 
 <header class="header">
@@ -81,7 +87,9 @@ button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
   <div class="status"><span class="status-dot"></span>PANEL READY</div>
 </header>
 
+<!-- HOME -->
 <section id="homePage" class="page">
+
   <div class="hero">
     <div class="hero-label">TROLL MODZ PANEL</div>
     <h1>Welcome Back.</h1>
@@ -131,6 +139,7 @@ button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
   </div>
 </section>
 
+<!-- FEATURES -->
 <section id="featuresPage" class="page hidden">
   <div class="hero">
     <div class="hero-label">CONFIGURATION</div>
@@ -158,6 +167,7 @@ button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
   <button class="btn-secondary" onclick="resetConfig()">RESET SETTINGS</button>
 </section>
 
+<!-- MANAGE -->
 <section id="managePage" class="page hidden">
   <div class="hero">
     <div class="hero-label">PREFERENCES</div>
@@ -190,6 +200,7 @@ button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
 <div class="footer">TROLL MODZ · PANEL INTERFACE</div>
 </main>
 
+<!-- NAVIGATION -->
 <nav class="bottom-nav hidden" id="bottomNav">
   <button class="nav-item active" id="homeNav" onclick="showPage('homePage','homeNav')"><span class="nav-icon">⌂</span>HOME</button>
   <button class="nav-item" id="featuresNav" onclick="showPage('featuresPage','featuresNav')"><span class="nav-icon">◈</span>FEATURES</button>
@@ -225,10 +236,10 @@ let titleTapTimer = null;
 
 function loadConfig(){
   try{
-    const saved = localStorage.getItem("trollModzConfig");
-    if(saved) config = {...initialConfig,...JSON.parse(saved)};
+    const saved=localStorage.getItem("trollModzConfig");
+    if(saved) config={...initialConfig,...JSON.parse(saved)};
   }catch(error){
-    config = {...initialConfig};
+    config={...initialConfig};
   }
   renderFeatures();
   loadAdminSettings();
@@ -236,11 +247,11 @@ function loadConfig(){
 
 function saveConfig(){
   document.querySelectorAll("#featureList input[type='checkbox']").forEach(input=>{
-    config[input.dataset.key+"_enabled"] = input.checked;
+    config[input.dataset.key+"_enabled"]=input.checked;
   });
 
-  config.sub1_enabled = document.getElementById("sub1").checked;
-  config.sub2_enabled = document.getElementById("sub2").checked;
+  config.sub1_enabled=document.getElementById("sub1").checked;
+  config.sub2_enabled=document.getElementById("sub2").checked;
 
   try{
     localStorage.setItem("trollModzConfig",JSON.stringify(config));
@@ -251,8 +262,9 @@ function saveConfig(){
 }
 
 function renderFeatures(){
-  const featureList = document.getElementById("featureList");
-  const features = [
+  const featureList=document.getElementById("featureList");
+
+  const features=[
     {key:"t1",name:config.t1},
     {key:"t2",name:config.t2},
     {key:"t3",name:config.t3},
@@ -261,39 +273,39 @@ function renderFeatures(){
     {key:"t6",name:config.t6}
   ];
 
-  featureList.innerHTML = "";
+  featureList.innerHTML="";
 
   features.forEach(feature=>{
-    const card = document.createElement("div");
-    card.className = "card";
+    const card=document.createElement("div");
+    card.className="card";
 
-    const row = document.createElement("div");
-    row.className = "feature-row";
+    const row=document.createElement("div");
+    row.className="feature-row";
 
-    const info = document.createElement("div");
-    info.className = "feature-info";
+    const info=document.createElement("div");
+    info.className="feature-info";
 
-    const name = document.createElement("div");
-    name.className = "feature-name";
-    name.textContent = feature.name;
+    const name=document.createElement("div");
+    name.className="feature-name";
+    name.textContent=feature.name;
 
-    const desc = document.createElement("div");
-    desc.className = "feature-description";
-    desc.textContent = featureDescriptions[feature.key] || "";
+    const desc=document.createElement("div");
+    desc.className="feature-description";
+    desc.textContent=featureDescriptions[feature.key]||"";
 
     info.appendChild(name);
     info.appendChild(desc);
 
-    const label = document.createElement("label");
-    label.className = "switch";
+    const label=document.createElement("label");
+    label.className="switch";
 
-    const input = document.createElement("input");
-    input.type = "checkbox";
-    input.dataset.key = feature.key;
-    input.checked = Boolean(config[feature.key+"_enabled"]);
+    const input=document.createElement("input");
+    input.type="checkbox";
+    input.dataset.key=feature.key;
+    input.checked=Boolean(config[feature.key+"_enabled"]);
 
-    const slider = document.createElement("span");
-    slider.className = "slider";
+    const slider=document.createElement("span");
+    slider.className="slider";
 
     input.addEventListener("change",()=>{
       if(feature.key==="t5"){
@@ -313,10 +325,10 @@ function renderFeatures(){
     featureList.appendChild(card);
   });
 
-  document.getElementById("sub1Label").textContent = config.sub1;
-  document.getElementById("sub2Label").textContent = config.sub2;
-  document.getElementById("sub1").checked = Boolean(config.sub1_enabled);
-  document.getElementById("sub2").checked = Boolean(config.sub2_enabled);
+  document.getElementById("sub1Label").textContent=config.sub1;
+  document.getElementById("sub2Label").textContent=config.sub2;
+  document.getElementById("sub1").checked=Boolean(config.sub1_enabled);
+  document.getElementById("sub2").checked=Boolean(config.sub2_enabled);
 
   document.getElementById("aimLagExpandArea").classList.toggle(
     "hidden",
@@ -325,7 +337,7 @@ function renderFeatures(){
 }
 
 function login(){
-  const enteredKey = document.getElementById("accessKey").value.trim();
+  const enteredKey=document.getElementById("accessKey").value.trim();
 
   if(enteredKey===VALID_KEY){
     sessionStorage.setItem("trollModzLoggedIn","true");
@@ -334,7 +346,7 @@ function login(){
     document.getElementById("bottomNav").classList.remove("hidden");
     loadConfig();
   }else{
-    document.getElementById("loginError").textContent =
+    document.getElementById("loginError").textContent=
       "Invalid access key. Please try again.";
   }
 }
@@ -385,7 +397,7 @@ function saveAdminSettings(){
   if(title) localStorage.setItem("trollModzAdminTitle",title);
   if(subtitle) localStorage.setItem("trollModzAdminSubtitle",subtitle);
 
-  document.getElementById("adminMessage").textContent =
+  document.getElementById("adminMessage").textContent=
     "Settings saved on this device.";
 }
 
@@ -404,7 +416,7 @@ function clearSavedConfig(){
   config={...initialConfig};
   renderFeatures();
 
-  document.getElementById("adminMessage").textContent =
+  document.getElementById("adminMessage").textContent=
     "Saved configuration cleared.";
 }
 
@@ -424,24 +436,27 @@ function updateConfigStatus(){
 
 /* UPDATED openHappApp() */
 function openHappApp(){
-  // Vercel domain se direct subscription JSON URL banega
   const subUrl = window.location.origin + "/sub.json";
 
-  // 1. Clipboard mein URL copy karna
+  // 1. URL clipboard me copy ho jayega
   if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(subUrl)
-      .then(()=>{
-        const message=document.getElementById("subscriptionMessage");
-        if(message) message.textContent="Subscription URL copied.";
-      })
-      .catch(error=>{
-        console.log("Clipboard copy failed:",error);
-      });
+    navigator.clipboard.writeText(subUrl).catch(err=>{
+      console.log("Clipboard copy failed:",err);
+    });
   }
 
-  // 2. Happ app subscription import intent
-  window.location.href =
-    "happ://add-subscription?url=" + encodeURIComponent(subUrl);
+  // 2. Android Intent to directly launch Happ
+  const androidIntent =
+    "intent://add/" + encodeURIComponent(subUrl) +
+    "#Intent;scheme=happ;package=com.happproxy;end";
+
+  // Intent launch
+  window.location.href=androidIntent;
+
+  // Fallback: custom scheme
+  setTimeout(()=>{
+    window.location.href="happ://add/"+encodeURIComponent(subUrl);
+  },500);
 }
 
 window.addEventListener("DOMContentLoaded",()=>{
@@ -453,5 +468,6 @@ window.addEventListener("DOMContentLoaded",()=>{
   }
 });
 </script>
+
 </body>
-  </html>
+</html>
