@@ -1,0 +1,12 @@
+[
+  {
+    "name": "TROLL Modz permanent",
+    "type": "hysteria",
+    "server": "127.0.0.1",
+    "port": 443,
+    "auth": "troll-pass",
+    "tls": {
+      "enabled": true
+    }
+  }
+]
