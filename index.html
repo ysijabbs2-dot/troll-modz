@@ -6,13 +6,14 @@
   <title>Troll Modz</title>
   <style>
     :root {
-      --bg: #070a0e;
-      --card-bg: #0d131a;
-      --border: #16222f;
+      --bg: #05070a;
+      --card-bg: #0b1118;
+      --border: #152232;
       --cyan: #00f2fe;
-      --cyan-dim: rgba(0, 242, 254, 0.15);
-      --text: #e6edf3;
-      --text-muted: #627282;
+      --cyan-dim: rgba(0, 242, 254, 0.2);
+      --cyan-glow: rgba(0, 242, 254, 0.4);
+      --text: #f0f6fc;
+      --text-muted: #6e7f91;
       --green: #00ff88;
     }
 
@@ -22,489 +23,498 @@
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background-color: #020406;
+      background-color: var(--bg);
       color: var(--text);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      padding: 20px 14px;
     }
 
-    /* Mobile Shell */
-    .app-frame {
+    /* Floating Cyber Card */
+    .cyber-card {
       width: 100%;
-      max-width: 420px;
-      height: 100vh;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
+      max-width: 390px;
+      background: var(--card-bg);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      border-radius: 16px;
+      padding: 24px 20px;
+      box-shadow: 0 0 35px var(--cyan-dim), inset 0 0 15px rgba(0, 242, 254, 0.05);
       position: relative;
-      overflow: hidden;
     }
 
-    /* Top Bar */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(7, 10, 14, 0.95);
+    /* Logo & Title */
+    .title-wrap {
+      text-align: center;
+      margin-bottom: 22px;
     }
 
-    .brand-title {
+    .main-title {
+      font-size: 22px;
       font-weight: 900;
-      font-size: 17px;
       letter-spacing: 2px;
       color: var(--cyan);
-      text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+      text-shadow: 0 0 14px var(--cyan-glow);
+      display: inline-block;
       cursor: pointer;
     }
 
-    .lang-badge {
+    .subtitle {
       font-size: 11px;
-      background: var(--border);
+      letter-spacing: 1.5px;
       color: var(--text-muted);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-weight: 700;
-      letter-spacing: 1px;
+      margin-top: 5px;
+      text-transform: uppercase;
     }
 
-    /* Screen Views */
-    .view-content {
-      flex: 1;
-      padding: 20px;
+    /* Key Input Screen */
+    .input-field {
+      width: 100%;
+      padding: 14px;
+      background: #06090d;
+      border: 1px solid var(--cyan);
+      border-radius: 10px;
+      color: var(--cyan);
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-align: center;
+      margin-bottom: 16px;
+      outline: none;
+      box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.15);
+    }
+
+    /* Status Card */
+    .status-panel {
+      background: #06090e;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      font-size: 12px;
       display: flex;
       flex-direction: column;
-      overflow-y: auto;
+      gap: 7px;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-row span:first-child {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .status-row span:last-child {
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    /* Toggle Items */
+    .toggle-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .toggle-item {
+      background: #06090e;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 11px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
+
+    .toggle-item:hover {
+      border-color: rgba(0, 242, 254, 0.3);
+    }
+
+    .toggle-label {
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    /* Sub-options for Hifi */
+    .sub-toggle-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-left: 18px;
+      border-left: 2px solid var(--cyan);
+      margin: 4px 0 6px 10px;
+    }
+
+    .sub-toggle-item {
+      background: #080d14;
+      border: 1px dashed rgba(0, 242, 254, 0.3);
+      border-radius: 7px;
+      padding: 9px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sub-toggle-label {
+      font-size: 12px;
+      color: #9ab0c5;
+    }
+
+    /* Cyber Switch */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 23px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: #1a2533;
+      border-radius: 24px;
+      transition: .3s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 17px;
+      width: 17px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      transition: .3s;
+    }
+
+    input:checked + .slider {
+      background-color: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(21px);
+      background-color: #05070a;
+    }
+
+    /* Action Buttons */
+    .btn {
+      width: 100%;
+      padding: 13px;
+      background: var(--cyan);
+      color: #040608;
+      font-weight: 800;
+      font-size: 13.5px;
+      letter-spacing: 1.5px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 18px var(--cyan-glow);
+      transition: 0.15s;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-muted);
+      box-shadow: none;
+      margin-top: 6px;
     }
 
     .hidden {
       display: none !important;
     }
 
-    /* 1. LOCK VIEW */
-    #lockView {
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      gap: 15px;
-    }
-
-    .cyber-input {
-      width: 100%;
-      padding: 14px;
-      background: #040608;
-      border: 1px solid var(--cyan);
-      border-radius: 8px;
-      color: var(--cyan);
-      text-align: center;
-      font-size: 14px;
-      letter-spacing: 2px;
-      outline: none;
-      box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.2);
-    }
-
-    /* 2. HOME VIEW */
-    .radar-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin: 15px 0 25px 0;
-      position: relative;
-    }
-
-    .radar-circle {
-      width: 170px;
-      height: 170px;
-      border: 2px dashed rgba(0, 242, 254, 0.35);
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      box-shadow: 0 0 35px rgba(0, 242, 254, 0.1);
-    }
-
-    .radar-inner {
-      width: 120px;
-      height: 120px;
-      border: 1px solid var(--cyan);
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: radial-gradient(circle, rgba(0,242,254,0.15) 0%, rgba(7,10,14,0.8) 70%);
-    }
-
-    .info-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 25px;
-    }
-
-    .grid-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
-    }
-
-    .grid-label {
-      font-size: 10px;
-      color: var(--text-muted);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .grid-val {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--cyan);
-    }
-
-    /* Buttons */
-    .action-btn {
-      width: 100%;
-      padding: 14px;
-      background: var(--cyan);
-      color: #040608;
-      font-weight: 800;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      letter-spacing: 1.5px;
-      box-shadow: 0 0 20px var(--cyan-dim);
-      transition: 0.15s;
-    }
-
-    .action-btn:active {
-      transform: scale(0.98);
-    }
-
-    /* 3. FEATURES VIEW */
-    .toggle-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .toggle-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 15px 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .toggle-title {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    /* Custom Switch */
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 44px;
-      height: 24px;
-    }
-
-    .switch input { opacity: 0; width: 0; height: 0; }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: #1e2836;
-      transition: .3s;
-      border-radius: 24px;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px;
-      width: 18px;
-      left: 3px;
-      bottom: 3px;
-      background-color: white;
-      transition: .3s;
-      border-radius: 50%;
-    }
-
-    input:checked + .slider {
-      background-color: var(--cyan);
-      box-shadow: 0 0 12px var(--cyan);
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(20px);
-      background-color: #040608;
-    }
-
-    /* Bottom Navigation Bar */
-    .bottom-nav {
-      height: 65px;
-      border-top: 1px solid var(--border);
-      background: #06090d;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-
-    .nav-item.active {
-      color: var(--cyan);
-      text-shadow: 0 0 8px rgba(0, 242, 254, 0.4);
-    }
-
-    /* Admin Overlay */
-    .admin-modal {
+    /* Admin Modal */
+    .admin-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(7, 10, 14, 0.98);
-      padding: 24px;
+      background: rgba(7, 11, 16, 0.98);
+      border-radius: 16px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 14px;
-      z-index: 99;
+      z-index: 50;
+      overflow-y: auto;
     }
 
-    .admin-modal input {
-      padding: 10px;
-      background: #040608;
+    .admin-overlay h3 {
+      color: var(--cyan);
+      font-size: 16px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .admin-field {
+      margin-bottom: 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .admin-field label {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .admin-field input {
+      padding: 9px 12px;
+      background: #05070a;
       border: 1px solid var(--border);
-      color: #fff;
       border-radius: 6px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .admin-field input:focus {
+      border-color: var(--cyan);
     }
   </style>
 </head>
 <body>
 
-  <div class="app-frame">
-    <!-- Top Header (Logo click = Admin) -->
-    <div class="top-bar">
-      <div class="brand-title" onclick="openAdminPrompt()">TROLL MODZ</div>
-      <div class="lang-badge">EN</div>
+  <div class="cyber-card">
+    
+    <!-- Title (6-Click trigger for Admin) -->
+    <div class="title-wrap">
+      <div class="main-title" onclick="handleTitleClick()">TROLL MODZ</div>
+      <div class="subtitle" id="topSubtitle">ENTER YOUR ACCESS KEY</div>
     </div>
 
-    <!-- 1. KEY AUTH VIEW -->
-    <div id="lockView" class="view-content">
-      <h3 style="letter-spacing: 1.5px; color: var(--cyan); margin-bottom: 5px;">ACCESS GATEWAY</h3>
-      <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 20px;">NO ACCOUNT. JUST YOUR KEY.</p>
-      
-      <input type="text" id="keyField" class="cyber-input" placeholder="XXXX-XXXX-XXXX-XXXX">
-      <button class="action-btn" onclick="checkKey()">UNLOCK ACCESS</button>
-      <p id="authError" style="color: #ff4757; font-size: 12px;" class="hidden">Invalid Key. Contact Admin.</p>
+    <!-- 1. AUTH SCREEN -->
+    <div id="authSection">
+      <input type="text" id="keyInput" class="input-field" placeholder="XXXX-XXXX-XXXX-XXXX">
+      <button class="btn" onclick="validateKey()">UNLOCK ACCESS</button>
+      <p id="errorMsg" style="color: #ff4757; font-size: 12px; text-align: center; margin-top: 10px;" class="hidden">Invalid Key. Contact Admin.</p>
     </div>
 
-    <!-- 2. HOME VIEW -->
-    <div id="homeView" class="view-content hidden">
-      <div style="font-size: 11px; color: var(--green); letter-spacing: 1px; font-weight: 700;">● CONNECTED</div>
+    <!-- 2. DASHBOARD & TOGGLES SCREEN -->
+    <div id="dashSection" class="hidden">
       
-      <div class="radar-container">
-        <div class="radar-circle">
-          <div class="radar-inner">
-            <span style="font-weight: 900; letter-spacing: 1px; color: var(--cyan);">READY</span>
+      <div class="status-panel">
+        <div class="status-row">
+          <span>Key:</span>
+          <span>TROLL-4E3B-545C-E7AA</span>
+        </div>
+        <div class="status-row">
+          <span>Status:</span>
+          <span style="color: var(--green);">CONNECTED</span>
+        </div>
+        <div class="status-row">
+          <span>Expiry:</span>
+          <span>LIFETIME</span>
+        </div>
+      </div>
+
+      <!-- Toggles List -->
+      <div class="toggle-list">
+        
+        <div class="toggle-item">
+          <span class="toggle-label" id="lbl1"></span>
+          <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+        </div>
+
+        <div class="toggle-item">
+          <span class="toggle-label" id="lbl2"></span>
+          <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+        </div>
+
+        <div class="toggle-item">
+          <span class="toggle-label" id="lbl3"></span>
+          <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+        </div>
+
+        <div class="toggle-item">
+          <span class="toggle-label" id="lbl4"></span>
+          <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+        </div>
+
+        <!-- 5. Hifi Toggle with Dropdown Sub-toggles -->
+        <div class="toggle-item">
+          <span class="toggle-label" id="lbl5"></span>
+          <label class="switch">
+            <input type="checkbox" id="hifiMaster" onchange="toggleHifiSub(this)">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <!-- Hidden Sub-toggles under Hifi -->
+        <div id="hifiSubGroup" class="sub-toggle-group hidden">
+          <div class="sub-toggle-item">
+            <span class="sub-toggle-label" id="lblSub1"></span>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+          </div>
+          <div class="sub-toggle-item">
+            <span class="sub-toggle-label" id="lblSub2"></span>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
           </div>
         </div>
-      </div>
 
-      <div class="info-card">
-        <span style="color: var(--text-muted);">KEY</span>
-        <span style="font-weight: 700; color: var(--cyan);" id="activeKeyText">TROLL-4E3B-545C-E7AA</span>
-      </div>
-
-      <div class="info-grid">
-        <div class="grid-card">
-          <div class="grid-label">EXPIRY</div>
-          <div class="grid-val">LIFETIME</div>
+        <div class="toggle-item">
+          <span class="toggle-label" id="lbl6"></span>
+          <label class="switch"><input type="checkbox"><span class="slider"></span></label>
         </div>
-        <div class="grid-card">
-          <div class="grid-label">DEVICE</div>
-          <div class="grid-val" style="color: var(--green);">REGISTERED</div>
-        </div>
+
       </div>
 
-      <div style="margin-top: auto;">
-        <button class="action-btn" onclick="openHappApp()">+ ADD SUBSCRIPTION</button>
-      </div>
+      <button class="btn" onclick="openHappApp()">+ ADD SUBSCRIPTION</button>
     </div>
 
-    <!-- 3. FEATURES VIEW -->
-    <div id="featuresView" class="view-content hidden">
-      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px; letter-spacing: 1px;">CONFIGURATION MODS</p>
-      <div class="toggle-list" id="togglesList">
-        <!-- Rendered by JS -->
-      </div>
+    <!-- 3. HIDDEN ADMIN PANEL -->
+    <div id="adminPanel" class="admin-overlay hidden">
+      <h3>Admin Panel</h3>
+      
+      <div class="admin-field"><label>Toggle 1</label><input type="text" id="adm1"></div>
+      <div class="admin-field"><label>Toggle 2</label><input type="text" id="adm2"></div>
+      <div class="admin-field"><label>Toggle 3</label><input type="text" id="adm3"></div>
+      <div class="admin-field"><label>Toggle 4</label><input type="text" id="adm4"></div>
+      <div class="admin-field"><label>Toggle 5 (Main)</label><input type="text" id="adm5"></div>
+      <div class="admin-field"><label>Hifi Sub-Toggle 1</label><input type="text" id="admSub1"></div>
+      <div class="admin-field"><label>Hifi Sub-Toggle 2</label><input type="text" id="admSub2"></div>
+      <div class="admin-field"><label>Toggle 6</label><input type="text" id="adm6"></div>
+
+      <button class="btn" style="margin-top: 10px;" onclick="saveAdminData()">SAVE CHANGES</button>
+      <button class="btn btn-secondary" onclick="closeAdmin()">CANCEL</button>
     </div>
 
-    <!-- 4. MANAGE VIEW -->
-    <div id="manageView" class="view-content hidden">
-      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">ACCOUNT & APP</p>
-      <div class="info-card">
-        <span>App Version</span>
-        <span style="color: var(--cyan);">v2.4.0</span>
-      </div>
-      <div class="info-card">
-        <span>Server Connection</span>
-        <span style="color: var(--green);">Stable (24ms)</span>
-      </div>
-    </div>
-
-    <!-- Hidden Admin Panel -->
-    <div id="adminModal" class="admin-modal hidden">
-      <h3 style="color: var(--cyan);">Edit Features Labels</h3>
-      <label style="font-size: 11px; color: var(--text-muted);">Toggle 1 Name</label>
-      <input type="text" id="t1">
-      <label style="font-size: 11px; color: var(--text-muted);">Toggle 2 Name</label>
-      <input type="text" id="t2">
-      <label style="font-size: 11px; color: var(--text-muted);">Toggle 3 Name</label>
-      <input type="text" id="t3">
-      <button class="action-btn" style="margin-top: 10px;" onclick="saveLabels()">SAVE CHANGES</button>
-      <button class="action-btn" style="background: transparent; color: var(--text-muted); box-shadow: none;" onclick="closeAdmin()">CANCEL</button>
-    </div>
-
-    <!-- Bottom Navigation (Shown after unlock) -->
-    <div class="bottom-nav hidden" id="bottomNavBar">
-      <div class="nav-item active" id="navHome" onclick="switchTab('home')">
-        <span>⌂</span>
-        <span>HOME</span>
-      </div>
-      <div class="nav-item" id="navFeatures" onclick="switchTab('features')">
-        <span>⚙</span>
-        <span>FEATURES</span>
-      </div>
-      <div class="nav-item" id="navManage" onclick="switchTab('manage')">
-        <span>☰</span>
-        <span>MANAGE</span>
-      </div>
-    </div>
   </div>
 
   <script>
-    const VALID_KEY = "TROLL-4E3B-545C-E7AA";
+    const TARGET_KEY = "TROLL-4E3B-545C-E7AA";
     const ADMIN_PASS = "admin123";
 
-    let featuresList = JSON.parse(localStorage.getItem('troll_features')) || [
-      "Prank Sound Trigger",
-      "Screen Flicker Mode",
-      "Fake Ping Lag"
-    ];
+    // Default Configuration
+    const defaultConfig = {
+      t1: "Prank Sound Trigger",
+      t2: "Screen Flicker Mode",
+      t3: "Fake Ping Lag",
+      t4: "Invert Controls",
+      t5: "Hifi",
+      sub1: "Ultra Audio Boost",
+      sub2: "Surround Echo",
+      t6: "Ghost Tap Mode"
+    };
 
-    function checkKey() {
-      const input = document.getElementById('keyField').value.trim();
-      if (input === VALID_KEY) {
-        document.getElementById('lockView').classList.add('hidden');
-        document.getElementById('bottomNavBar').classList.remove('hidden');
-        switchTab('home');
-        renderFeatures();
+    let config = JSON.parse(localStorage.getItem('troll_cfg')) || defaultConfig;
+
+    function applyLabels() {
+      document.getElementById('lbl1').innerText = config.t1;
+      document.getElementById('lbl2').innerText = config.t2;
+      document.getElementById('lbl3').innerText = config.t3;
+      document.getElementById('lbl4').innerText = config.t4;
+      document.getElementById('lbl5').innerText = config.t5;
+      document.getElementById('lblSub1').innerText = config.sub1;
+      document.getElementById('lblSub2').innerText = config.sub2;
+      document.getElementById('lbl6').innerText = config.t6;
+    }
+
+    applyLabels();
+
+    // Key Validation
+    function validateKey() {
+      const input = document.getElementById('keyInput').value.trim();
+      if (input === TARGET_KEY) {
+        document.getElementById('authSection').classList.add('hidden');
+        document.getElementById('dashSection').classList.remove('hidden');
+        document.getElementById('topSubtitle').innerText = "SYSTEM ACTIVE";
+        document.getElementById('errorMsg').classList.add('hidden');
       } else {
-        document.getElementById('authError').classList.remove('hidden');
+        document.getElementById('errorMsg').classList.remove('hidden');
       }
     }
 
-    function switchTab(tab) {
-      document.getElementById('homeView').classList.add('hidden');
-      document.getElementById('featuresView').classList.add('hidden');
-      document.getElementById('manageView').classList.add('hidden');
-
-      document.getElementById('navHome').classList.remove('active');
-      document.getElementById('navFeatures').classList.remove('active');
-      document.getElementById('navManage').classList.remove('active');
-
-      if (tab === 'home') {
-        document.getElementById('homeView').classList.remove('hidden');
-        document.getElementById('navHome').classList.add('active');
-      } else if (tab === 'features') {
-        document.getElementById('featuresView').classList.remove('hidden');
-        document.getElementById('navFeatures').classList.add('active');
-      } else if (tab === 'manage') {
-        document.getElementById('manageView').classList.remove('hidden');
-        document.getElementById('navManage').classList.add('active');
+    // Expand / Collapse Hifi sub-toggles
+    function toggleHifiSub(cb) {
+      const sub = document.getElementById('hifiSubGroup');
+      if (cb.checked) {
+        sub.classList.remove('hidden');
+      } else {
+        sub.classList.add('hidden');
       }
     }
 
-    function renderFeatures() {
-      const container = document.getElementById('togglesList');
-      container.innerHTML = '';
-      featuresList.forEach((label) => {
-        container.innerHTML += `
-          <div class="toggle-card">
-            <span class="toggle-title">${label}</span>
-            <label class="switch">
-              <input type="checkbox">
-              <span class="slider"></span>
-            </label>
-          </div>
-        `;
-      });
-    }
-
+    // Happ App Deep Link
     function openHappApp() {
-      // Happ client custom scheme
       window.location.href = "happ://add/trollmodz-lifetime-config";
     }
 
-    function openAdminPrompt() {
-      const p = prompt("Admin Password Daalo:");
-      if (p === ADMIN_PASS) {
-        document.getElementById('t1').value = featuresList[0] || '';
-        document.getElementById('t2').value = featuresList[1] || '';
-        document.getElementById('t3').value = featuresList[2] || '';
-        document.getElementById('adminModal').classList.remove('hidden');
-      } else if (p !== null) {
-        alert("Wrong Password!");
+    // 6 Consecutive Clicks Detection for Admin
+    let clickCount = 0;
+    let clickTimer = null;
+
+    function handleTitleClick() {
+      clickCount++;
+      clearTimeout(clickTimer);
+
+      clickTimer = setTimeout(() => {
+        clickCount = 0;
+      }, 1500); // 1.5 seconds me 6 clicks hone chahiye
+
+      if (clickCount >= 6) {
+        clickCount = 0;
+        const entered = prompt("Enter Admin Password:");
+        if (entered === ADMIN_PASS) {
+          openAdminModal();
+        } else if (entered !== null) {
+          alert("Incorrect Password!");
+        }
       }
     }
 
-    function saveLabels() {
-      featuresList[0] = document.getElementById('t1').value;
-      featuresList[1] = document.getElementById('t2').value;
-      featuresList[2] = document.getElementById('t3').value;
-      localStorage.setItem('troll_features', JSON.stringify(featuresList));
-      renderFeatures();
+    function openAdminModal() {
+      document.getElementById('adm1').value = config.t1;
+      document.getElementById('adm2').value = config.t2;
+      document.getElementById('adm3').value = config.t3;
+      document.getElementById('adm4').value = config.t4;
+      document.getElementById('adm5').value = config.t5;
+      document.getElementById('admSub1').value = config.sub1;
+      document.getElementById('admSub2').value = config.sub2;
+      document.getElementById('adm6').value = config.t6;
+
+      document.getElementById('adminPanel').classList.remove('hidden');
+    }
+
+    function saveAdminData() {
+      config.t1 = document.getElementById('adm1').value;
+      config.t2 = document.getElementById('adm2').value;
+      config.t3 = document.getElementById('adm3').value;
+      config.t4 = document.getElementById('adm4').value;
+      config.t5 = document.getElementById('adm5').value;
+      config.sub1 = document.getElementById('admSub1').value;
+      config.sub2 = document.getElementById('admSub2').value;
+      config.t6 = document.getElementById('adm6').value;
+
+      localStorage.setItem('troll_cfg', JSON.stringify(config));
+      applyLabels();
       closeAdmin();
     }
 
     function closeAdmin() {
-      document.getElementById('adminModal').classList.add('hidden');
+      document.getElementById('adminPanel').classList.add('hidden');
     }
   </script>
 </body>
