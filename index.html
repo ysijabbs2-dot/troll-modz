@@ -1,888 +1,1051 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Troll Modz</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080a0f">
+  <title>Troll Modz</title>
 
-<style>
-:root {
-  --bg: #03060a;
-  --card-bg: #090e15;
-  --card-inner: #05080d;
-  --border: #141f2d;
-  --cyan: #00f2fe;
-  --cyan-glow: rgba(0,242,254,.35);
-  --text: #f0f6fc;
-  --text-muted: #647587;
-  --green: #00ff88;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
+    :root {
+      --bg: #080a0f;
+      --card: #11151d;
+      --border: #252c38;
+      --text: #f4f6fa;
+      --muted: #8a94a6;
+      --accent: #00e5ff;
+      --green: #00e676;
+      --red: #ff3d57;
+    }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+    }
 
-.hidden { display: none !important; }
+    button,
+    input {
+      font: inherit;
+    }
 
-#frontLoginContainer {
-  width: 100%;
-  max-width: 375px;
-  padding: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    button {
+      cursor: pointer;
+    }
 
-.front-card {
-  width: 100%;
-  background: var(--card-bg);
-  border: 1px solid rgba(0,242,254,.3);
-  border-radius: 16px;
-  padding: 30px 22px;
-  text-align: center;
-  box-shadow: 0 0 32px var(--cyan-glow);
-}
+    .hidden {
+      display: none !important;
+    }
 
-.front-title {
-  font-size: 23px;
-  font-weight: 900;
-  letter-spacing: 2.5px;
-  color: var(--cyan);
-  text-shadow: 0 0 14px var(--cyan-glow);
-  cursor: pointer;
-  margin-bottom: 6px;
-}
+    .app {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      margin: auto;
+      padding: 22px 16px 100px;
+    }
 
-.front-subtitle {
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  color: var(--text-muted);
-  margin-bottom: 22px;
-}
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
 
-.front-input {
-  width: 100%;
-  padding: 14px;
-  background: var(--card-inner);
-  border: 1px solid var(--cyan);
-  border-radius: 8px;
-  color: var(--cyan);
-  font-size: 14px;
-  text-align: center;
-  margin-bottom: 16px;
-  outline: none;
-}
+    .brand {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
 
-.btn-action {
-  width: 100%;
-  padding: 14px;
-  background: var(--cyan);
-  color: #04070a;
-  font-weight: 800;
-  font-size: 13.5px;
-  letter-spacing: 1.5px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 0 18px var(--cyan-glow);
-}
+    .brand span {
+      color: var(--accent);
+    }
 
-.btn-action:active { transform: scale(.98); }
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      color: var(--green);
+      background: #092018;
+      border: 1px solid #164c35;
+      border-radius: 20px;
+      padding: 8px 11px;
+    }
 
-#mainAppContainer {
-  width: 100%;
-  max-width: 410px;
-  height: 100vh;
-  height: 100dvh;
-  background: var(--card-inner);
-  border-left: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
+    .status-dot {
+      height: 7px;
+      width: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+    }
 
-.app-topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
-  background: #05080df2;
-}
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 25px 20px;
+      margin-bottom: 20px;
+      border-radius: 18px;
+      background: linear-gradient(140deg, #13202b, #10131b 65%);
+      border: 1px solid #263744;
+    }
 
-.app-logo {
-  font-size: 17px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  color: var(--cyan);
-  text-shadow: 0 0 10px var(--cyan-glow);
-  cursor: pointer;
-}
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -65px;
+      top: -65px;
+      border-radius: 50%;
+      background: rgba(0, 229, 255, 0.09);
+      filter: blur(5px);
+    }
 
-.app-badge {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text-muted);
-  border: 1px solid var(--border);
-  padding: 3px 8px;
-  border-radius: 4px;
-}
+    .hero-label {
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
 
-.app-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 18px;
-}
+    .hero h1 {
+      font-size: 27px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
 
-.conn-status {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  margin-bottom: 18px;
-}
+    .hero p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
 
-.radar-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0 24px;
-}
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 800;
+      margin: 24px 2px 13px;
+    }
 
-.radar-outer {
-  width: 175px;
-  height: 175px;
-  border: 2px dashed rgba(0,242,254,.35);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    .section-title small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: normal;
+    }
 
-.radar-core {
-  width: 125px;
-  height: 125px;
-  border: 1px solid var(--cyan);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(circle, rgba(0,242,254,.18), rgba(5,8,13,.9) 75%);
-  box-shadow: 0 0 25px rgba(0,242,254,.2);
-}
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 17px;
+      margin-bottom: 12px;
+    }
 
-.radar-triangle {
-  width: 0;
-  height: 0;
-  border-top: 13px solid transparent;
-  border-bottom: 13px solid transparent;
-  border-left: 20px solid var(--cyan);
-  margin-left: 4px;
-  filter: drop-shadow(0 0 7px var(--cyan));
-}
+    .feature-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
 
-.info-bar {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  margin-bottom: 12px;
-  overflow-wrap: anywhere;
-}
+    .feature-info {
+      min-width: 0;
+    }
 
-.stat-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 24px;
-}
+    .feature-name {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
 
-.stat-tile {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-}
+    .feature-description {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
 
-.stat-lbl {
-  font-size: 10px;
-  color: var(--text-muted);
-  letter-spacing: 1px;
-  margin-bottom: 3px;
-}
+    .switch {
+      flex-shrink: 0;
+      position: relative;
+      width: 44px;
+      height: 25px;
+    }
 
-.stat-val {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--cyan);
-}
+    .switch input {
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
 
-.sec-subhead {
-  font-size: 11px;
-  color: var(--text-muted);
-  letter-spacing: .8px;
-  margin-bottom: 14px;
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-}
+    .slider {
+      position: absolute;
+      inset: 0;
+      border-radius: 30px;
+      background: #303744;
+      transition: 0.2s;
+      cursor: pointer;
+    }
 
-.feat-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 13px 15px;
-  margin-bottom: 11px;
-  transition: border-color .2s;
-}
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 19px;
+      height: 19px;
+      left: 3px;
+      top: 3px;
+      background: #fff;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
 
-.feat-card.active-hifi {
-  border-color: rgba(0,242,254,.5);
-}
+    .switch input:checked + .slider {
+      background: var(--accent);
+    }
 
-.feat-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
+    .switch input:checked + .slider::before {
+      transform: translateX(19px);
+      background: #061117;
+    }
 
-.feat-heading {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+    .btn-action {
+      width: 100%;
+      padding: 15px;
+      background: var(--accent);
+      border: none;
+      border-radius: 12px;
+      color: #061117;
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      margin-top: 12px;
+    }
 
-.feat-num {
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--cyan);
-}
+    .btn-action:active {
+      transform: scale(0.98);
+    }
 
-.feat-txt {
-  font-size: 13.5px;
-  font-weight: 700;
-}
+    .btn-secondary {
+      width: 100%;
+      padding: 13px;
+      background: #171d27;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
 
-.feat-desc {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-top: 4px;
-}
+    .subscription-card {
+      border-color: #17414b;
+      background: linear-gradient(135deg, #101b23, #11151d);
+    }
 
-.sub-box {
-  margin-top: 12px;
-  padding-top: 11px;
-  border-top: 1px dashed rgba(0,242,254,.2);
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
+    .subscription-card p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      margin-top: 8px;
+    }
 
-.sub-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  background: var(--card-inner);
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-}
+    .sub-options {
+      margin-top: 15px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
 
-.sub-txt {
-  font-size: 12px;
-  color: #9cb0c3;
-}
+    .sub-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 0;
+    }
 
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 44px;
-  height: 24px;
-  flex-shrink: 0;
-}
+    .sub-option:not(:last-child) {
+      border-bottom: 1px solid #202632;
+    }
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+    .sub-option span {
+      font-size: 12px;
+      font-weight: bold;
+    }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  inset: 0;
-  background: #17222f;
-  border-radius: 24px;
-  transition: .25s;
-}
+    .login-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+    }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 3px;
-  bottom: 3px;
-  background: white;
-  border-radius: 50%;
-  transition: .25s;
-}
+    .login-box {
+      width: 100%;
+      max-width: 360px;
+      padding: 28px 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      text-align: center;
+    }
 
-.switch input:checked + .slider {
-  background: var(--cyan);
-  box-shadow: 0 0 10px var(--cyan);
-}
+    .login-logo {
+      font-size: 30px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
 
-.switch input:checked + .slider:before {
-  transform: translateX(20px);
-  background: #03060a;
-}
+    .login-logo span {
+      color: var(--accent);
+    }
 
-.bottom-bar {
-  height: 62px;
-  flex-shrink: 0;
-  background: #04070c;
-  border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
+    .login-box p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 23px;
+    }
 
-.nav-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  font-size: 10px;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
+    .input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border);
+      background: #090c12;
+      color: var(--text);
+      outline: none;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
 
-.nav-btn svg {
-  width: 19px;
-  height: 19px;
-  fill: currentColor;
-}
+    .input:focus {
+      border-color: var(--accent);
+    }
 
-.nav-btn.active {
-  color: var(--cyan);
-  text-shadow: 0 0 8px rgba(0,242,254,.4);
-}
+    .error {
+      color: var(--red);
+      font-size: 12px;
+      margin-top: 12px;
+    }
 
-.admin-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(3,6,10,.98);
-  z-index: 999;
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  width: 100%;
-  max-width: 410px;
-  margin: auto;
-}
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      padding: 12px 10px calc(12px + env(safe-area-inset-bottom));
+      display: flex;
+      justify-content: space-around;
+      background: rgba(12, 15, 22, 0.97);
+      border-top: 1px solid var(--border);
+      z-index: 20;
+    }
 
-.admin-modal h3 {
-  color: var(--cyan);
-  font-size: 16px;
-  margin-bottom: 14px;
-  text-align: center;
-}
+    .nav-item {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 8px 2px;
+      font-size: 11px;
+      font-weight: bold;
+    }
 
-.adm-field {
-  margin-bottom: 9px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
+    .nav-item.active {
+      color: var(--accent);
+    }
 
-.adm-field label {
-  font-size: 10px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-}
+    .nav-icon {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
 
-.adm-field input {
-  padding: 9px 12px;
-  background: #060a10;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: white;
-  font-size: 13px;
-  outline: none;
-}
+    .admin-panel {
+      border: 1px solid #704a17;
+      background: #19150f;
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 25px;
+    }
 
-@media (max-height: 600px) {
-  #mainAppContainer { height: 100vh; }
-}
-</style>
+    .admin-panel h3 {
+      color: #ffbf55;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .admin-panel .input {
+      margin-bottom: 10px;
+    }
+
+    .admin-button {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #704a17;
+      background: #302311;
+      color: #ffbf55;
+      border-radius: 9px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .message {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+      margin-top: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .footer {
+      text-align: center;
+      color: #566071;
+      font-size: 10px;
+      margin-top: 30px;
+    }
+  </style>
 </head>
 
 <body>
 
-<div id="frontLoginContainer">
-  <div class="front-card">
-    <div class="front-title" onclick="handleSecretTap()">TROLL MODZ</div>
-    <div class="front-subtitle">ENTER YOUR ACCESS KEY</div>
+  <!-- LOGIN SCREEN -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <div class="login-logo">TROLL <span>MODZ</span></div>
+      <p>Enter your access key to continue.</p>
 
-    <input
-      type="text"
-      id="keyField"
-      class="front-input"
-      placeholder="XXXX-XXXX-XXXX-XXXX"
-      autocomplete="off"
-    >
+      <input
+        type="password"
+        id="accessKey"
+        class="input"
+        placeholder="Enter access key"
+        autocomplete="off"
+      >
 
-    <button class="btn-action" onclick="unlockDashboard()">UNLOCK ACCESS</button>
+      <button class="btn-action" onclick="login()">LOGIN</button>
 
-    <p id="errNotice" class="hidden"
-       style="color:#ff4757;font-size:11px;margin-top:10px;">
-      Invalid Key! Try again.
-    </p>
-  </div>
-</div>
-
-<div id="mainAppContainer" class="hidden">
-
-  <div class="app-topbar">
-    <div class="app-logo" onclick="handleSecretTap()">TROLL MODZ</div>
-    <div class="app-badge">EN</div>
-  </div>
-
-  <div class="app-body">
-
-    <!-- HOME -->
-    <div id="tabHome">
-      <div class="conn-status">
-        <span style="color:var(--green)">● CONNECTED</span>
-        <span style="color:var(--text-muted)">STATUS</span>
-      </div>
-
-      <div class="radar-wrap">
-        <div class="radar-outer">
-          <div class="radar-core">
-            <div class="radar-triangle"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="info-bar">
-        <span style="color:var(--text-muted)">KEY</span>
-        <span style="font-weight:700;color:var(--cyan)">TROLL-4E3B-545C-E7AA</span>
-      </div>
-
-      <div class="stat-grid">
-        <div class="stat-tile">
-          <div class="stat-lbl">EXPIRY</div>
-          <div class="stat-val">LIFETIME</div>
-        </div>
-        <div class="stat-tile">
-          <div class="stat-lbl">DEVICE</div>
-          <div class="stat-val" style="color:var(--green)">REGISTERED</div>
-        </div>
-      </div>
-
-      <button class="btn-action" onclick="openHappApp()">+ ADD SUBSCRIPTION</button>
+      <div class="error" id="loginError"></div>
     </div>
+  </div>
 
-    <!-- FEATURES -->
-    <div id="tabFeatures" class="hidden">
+  <!-- MAIN APP -->
+  <main class="app hidden" id="mainApp">
 
-      <div class="sec-subhead">
-        <span>FEATURE CONFIGURATION</span>
-        <span style="color:var(--cyan);font-weight:bold">6/6</span>
+    <header class="header">
+      <div class="brand" id="brandTitle" onclick="handleTitleTap()">
+        TROLL <span>MODZ</span>
       </div>
 
-      <div class="feat-card">
-        <div class="feat-top">
-          <div class="feat-heading">
-            <span class="feat-num">01</span>
-            <span class="feat-txt" id="fName1"></span>
-          </div>
-          <label class="switch">
-            <input type="checkbox" id="toggle1">
-            <span class="slider"></span>
-          </label>
-        </div>
-        <div class="feat-desc">LOCATION MOCO configuration toggle.</div>
+      <div class="status">
+        <span class="status-dot"></span>
+        PANEL READY
+      </div>
+    </header>
+
+    <!-- HOME PAGE -->
+    <section id="homePage" class="page">
+
+      <div class="hero">
+        <div class="hero-label">TROLL MODZ PANEL</div>
+        <h1>Welcome Back.</h1>
+        <p>
+          Manage your panel settings from one place.
+          Choose a section below to continue.
+        </p>
       </div>
 
-      <div class="feat-card">
-        <div class="feat-top">
-          <div class="feat-heading">
-            <span class="feat-num">02</span>
-            <span class="feat-txt" id="fName2"></span>
-          </div>
-          <label class="switch">
-            <input type="checkbox" id="toggle2">
-            <span class="slider"></span>
-          </label>
-        </div>
-        <div class="feat-desc">AIM POINT configuration toggle.</div>
+      <div class="section-title">
+        <span>QUICK ACCESS</span>
+        <small>Control panel</small>
       </div>
 
-      <div class="feat-card">
-        <div class="feat-top">
-          <div class="feat-heading">
-            <span class="feat-num">03</span>
-            <span class="feat-txt" id="fName3"></span>
-          </div>
-          <label class="switch">
-            <input type="checkbox" id="toggle3">
-            <span class="slider"></span>
-          </label>
-        </div>
-        <div class="feat-desc">GLOO ROTATION configuration toggle.</div>
+      <div class="card subscription-card">
+        <div class="feature-name">ADD SUBSCRIPTION</div>
+
+        <p>
+          Open the subscription app using the configured subscription link.
+        </p>
+
+        <button class="btn-action" onclick="openHappApp()">
+          + ADD SUBSCRIPTION
+        </button>
+
+        <div id="subscriptionMessage" class="message"></div>
       </div>
 
-      <div class="feat-card">
-        <div class="feat-top">
-          <div class="feat-heading">
-            <span class="feat-num">04</span>
-            <span class="feat-txt" id="fName4"></span>
-          </div>
-          <label class="switch">
-            <input type="checkbox" id="toggle4">
-            <span class="slider"></span>
-          </label>
-        </div>
-        <div class="feat-desc">FPS CONFIG configuration toggle.</div>
+      <div class="section-title">
+        <span>PANEL OVERVIEW</span>
       </div>
 
-      <div class="feat-card" id="cardAimLag">
-        <div class="feat-top">
-          <div class="feat-heading">
-            <span class="feat-num">05</span>
-            <span class="feat-txt" id="fName5"></span>
+      <div class="card">
+        <div class="feature-row">
+          <div class="feature-info">
+            <div class="feature-name">FEATURES</div>
+            <div class="feature-description">
+              View and manage available panel options.
+            </div>
           </div>
-          <label class="switch">
-            <input type="checkbox" id="aimLagCheck" onchange="toggleAimLag(this)">
-            <span class="slider"></span>
-          </label>
+
+          <button class="btn-secondary" style="width:auto;margin:0"
+            onclick="showPage('featuresPage', 'featuresNav')">
+            OPEN
+          </button>
         </div>
+      </div>
 
-        <div class="feat-desc">AIM LAG main configuration toggle.</div>
+      <div class="card">
+        <div class="feature-row">
+          <div class="feature-info">
+            <div class="feature-name">MANAGE</div>
+            <div class="feature-description">
+              Review your saved panel preferences.
+            </div>
+          </div>
 
-        <div id="aimLagExpandArea" class="sub-box hidden">
-          <div class="sub-row">
-            <span class="sub-txt" id="fSubName1"></span>
+          <button class="btn-secondary" style="width:auto;margin:0"
+            onclick="showPage('managePage', 'manageNav')">
+            OPEN
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- FEATURES PAGE -->
+    <section id="featuresPage" class="page hidden">
+
+      <div class="hero">
+        <div class="hero-label">CONFIGURATION</div>
+        <h1>Features</h1>
+        <p>Manage your available panel settings.</p>
+      </div>
+
+      <div class="section-title">
+        <span>MAIN FEATURES</span>
+        <small>Toggle settings</small>
+      </div>
+
+      <div id="featureList"></div>
+
+      <!-- AIM LAG SUB-OPTIONS -->
+      <div class="card hidden" id="aimLagExpandArea">
+        <div class="feature-name">AIM LAG OPTIONS</div>
+
+        <div class="sub-options">
+
+          <div class="sub-option">
+            <span id="sub1Label">On Fire</span>
+
             <label class="switch">
-              <input type="checkbox" id="subToggle1">
+              <input type="checkbox" id="sub1"
+                onchange="saveConfig()">
               <span class="slider"></span>
             </label>
           </div>
 
-          <div class="sub-row">
-            <span class="sub-txt" id="fSubName2"></span>
+          <div class="sub-option">
+            <span id="sub2Label">On Scope</span>
+
             <label class="switch">
-              <input type="checkbox" id="subToggle2">
+              <input type="checkbox" id="sub2"
+                onchange="saveConfig()">
               <span class="slider"></span>
             </label>
           </div>
+
         </div>
       </div>
 
-      <div class="feat-card">
-        <div class="feat-top">
-          <div class="feat-heading">
-            <span class="feat-num">06</span>
-            <span class="feat-txt" id="fName6"></span>
-          </div>
-          <label class="switch">
-            <input type="checkbox" id="toggle6">
-            <span class="slider"></span>
-          </label>
-        </div>
-        <div class="feat-desc">ÇYGI configuration toggle.</div>
+      <button class="btn-secondary" onclick="resetConfig()">
+        RESET SETTINGS
+      </button>
+
+    </section>
+
+    <!-- MANAGE PAGE -->
+    <section id="managePage" class="page hidden">
+
+      <div class="hero">
+        <div class="hero-label">PREFERENCES</div>
+        <h1>Manage Panel</h1>
+        <p>Review and manage your saved preferences.</p>
       </div>
 
-    </div>
-
-    <!-- MANAGE -->
-    <div id="tabManage" class="hidden">
-      <div class="sec-subhead">
-        <span>SYSTEM LOGS & APP CONFIG</span>
+      <div class="card">
+        <div class="feature-name">CONFIGURATION STATUS</div>
+        <p class="feature-description" id="configStatus">
+          Your preferences are stored locally on this device.
+        </p>
       </div>
 
-      <div class="info-bar">
-        <span style="color:var(--text-muted)">Troll Engine</span>
-        <span style="color:var(--cyan)">v3.5 Final</span>
+      <div class="card">
+        <div class="feature-name">SESSION</div>
+        <p class="feature-description">
+          Log out of the current panel session.
+        </p>
+
+        <button class="btn-secondary" onclick="logout()">
+          LOG OUT
+        </button>
       </div>
 
-      <div class="info-bar">
-        <span style="color:var(--text-muted)">Protocol</span>
-        <span style="color:var(--green)">Ready</span>
+      <!-- HIDDEN ADMIN PANEL -->
+      <div class="admin-panel hidden" id="adminPanel">
+        <h3>ADMIN PANEL</h3>
+
+        <input
+          class="input"
+          id="adminTitle"
+          placeholder="Panel title"
+        >
+
+        <input
+          class="input"
+          id="adminSubtitle"
+          placeholder="Panel subtitle"
+        >
+
+        <button class="admin-button" onclick="saveAdminSettings()">
+          SAVE ADMIN SETTINGS
+        </button>
+
+        <button class="admin-button" onclick="clearSavedConfig()">
+          CLEAR SAVED CONFIGURATION
+        </button>
+
+        <div class="message" id="adminMessage"></div>
       </div>
 
-      <div class="info-bar">
-        <span style="color:var(--text-muted)">Client License</span>
-        <span>Verified Valid</span>
-      </div>
+    </section>
+
+    <div class="footer">
+      TROLL MODZ · PANEL INTERFACE
     </div>
 
-  </div>
+  </main>
 
-  <div class="bottom-bar">
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav hidden" id="bottomNav">
 
-    <div class="nav-btn active" id="navHome" onclick="gotoTab('home')">
-      <svg viewBox="0 0 24 24">
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-      </svg>
-      <span>HOME</span>
-    </div>
+    <button class="nav-item active" id="homeNav"
+      onclick="showPage('homePage', 'homeNav')">
+      <span class="nav-icon">⌂</span>
+      HOME
+    </button>
 
-    <div class="nav-btn" id="navFeatures" onclick="gotoTab('features')">
-      <svg viewBox="0 0 24 24">
-        <path d="M19.14 12.94c.04-.3.06-.61.06-.94
-        0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0
-        .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96
-        c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0
-        0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54
-        c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0
-        -.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58
-        c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49
-        0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96
-        c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84
-        c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56
-        1.62-.94l2.39.96c.22.07.47 0 .59-.22l1.92-3.32
-        c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6
-        s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
-      </svg>
-      <span>FEATURES</span>
-    </div>
+    <button class="nav-item" id="featuresNav"
+      onclick="showPage('featuresPage', 'featuresNav')">
+      <span class="nav-icon">◈</span>
+      FEATURES
+    </button>
 
-    <div class="nav-btn" id="navManage" onclick="gotoTab('manage')">
-      <svg viewBox="0 0 24 24">
-        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-      </svg>
-      <span>MANAGE</span>
-    </div>
+    <button class="nav-item" id="manageNav"
+      onclick="showPage('managePage', 'manageNav')">
+      <span class="nav-icon">⚙</span>
+      MANAGE
+    </button>
 
-  </div>
-</div>
+  </nav>
 
-<!-- ADMIN PANEL -->
-<div id="adminPanel" class="admin-modal hidden">
-  <h3>Admin Panel (Config)</h3>
+  <script>
+    // ACCESS KEY
+    const VALID_KEY = "TROLL-4E3B-545C-E7AA";
 
-  <div class="adm-field">
-    <label>Toggle 01</label>
-    <input type="text" id="inp1">
-  </div>
+    // DEFAULT CONFIGURATION
+    const initialConfig = {
+      t1: "LOCATION MOCO",
+      t2: "AIM POINT",
+      t3: "GLOO ROTATION",
+      t4: "FPS CONFIG",
+      t5: "AIM LAG",
+      sub1: "On Fire",
+      sub2: "On Scope",
+      t6: "ÇYGI"
+    };
 
-  <div class="adm-field">
-    <label>Toggle 02</label>
-    <input type="text" id="inp2">
-  </div>
+    // Feature descriptions
+    const featureDescriptions = {
+      t1: "LOCATION MOCO configuration option.",
+      t2: "AIM POINT configuration option.",
+      t3: "GLOO ROTATION configuration option.",
+      t4: "FPS CONFIG configuration option.",
+      t5: "Expand to view additional options.",
+      t6: "ÇYGI configuration option."
+    };
 
-  <div class="adm-field">
-    <label>Toggle 03</label>
-    <input type="text" id="inp3">
-  </div>
+    let config = { ...initialConfig };
+    let titleTapCount = 0;
+    let titleTapTimer = null;
 
-  <div class="adm-field">
-    <label>Toggle 04</label>
-    <input type="text" id="inp4">
-  </div>
+    // LOAD SAVED SETTINGS
+    function loadConfig() {
+      try {
+        const saved = localStorage.getItem("trollModzConfig");
 
-  <div class="adm-field">
-    <label>Toggle 05 (Main)</label>
-    <input type="text" id="inp5">
-  </div>
+        if (saved) {
+          config = {
+            ...initialConfig,
+            ...JSON.parse(saved)
+          };
+        }
+      } catch (error) {
+        console.error("Unable to load settings:", error);
+        config = { ...initialConfig };
+      }
 
-  <div class="adm-field">
-    <label>AIM LAG - On Fire</label>
-    <input type="text" id="inpSub1">
-  </div>
-
-  <div class="adm-field">
-    <label>AIM LAG - On Scope</label>
-    <input type="text" id="inpSub2">
-  </div>
-
-  <div class="adm-field">
-    <label>Toggle 06</label>
-    <input type="text" id="inp6">
-  </div>
-
-  <button class="btn-action" style="margin-top:12px" onclick="saveConfig()">
-    SAVE CHANGES
-  </button>
-
-  <button class="btn-action"
-    style="background:transparent;color:var(--text-muted);box-shadow:none;margin-top:6px"
-    onclick="closeConfig()">
-    CANCEL
-  </button>
-</div>
-
-<script>
-const VALID_KEY = "TROLL-4E3B-545C-E7AA";
-const ADMIN_PASS = "admin123";
-
-const initialConfig = {
-  t1: "LOCATION MOCO",
-  t2: "AIM POINT",
-  t3: "GLOO ROTATION",
-  t4: "FPS CONFIG",
-  t5: "AIM LAG",
-  sub1: "On Fire",
-  sub2: "On Scope",
-  t6: "ÇYGI"
-};
-
-let cfg = initialConfig;
-
-try {
-  const saved = localStorage.getItem("troll_v3_store");
-  if (saved) cfg = { ...initialConfig, ...JSON.parse(saved) };
-} catch (e) {
-  cfg = { ...initialConfig };
-}
-
-function renderAllLabels() {
-  document.getElementById("fName1").innerText = cfg.t1;
-  document.getElementById("fName2").innerText = cfg.t2;
-  document.getElementById("fName3").innerText = cfg.t3;
-  document.getElementById("fName4").innerText = cfg.t4;
-  document.getElementById("fName5").innerText = cfg.t5;
-  document.getElementById("fSubName1").innerText = cfg.sub1;
-  document.getElementById("fSubName2").innerText = cfg.sub2;
-  document.getElementById("fName6").innerText = cfg.t6;
-}
-
-renderAllLabels();
-
-function unlockDashboard() {
-  const val = document.getElementById("keyField").value.trim();
-  const err = document.getElementById("errNotice");
-
-  if (val === VALID_KEY) {
-    err.classList.add("hidden");
-    document.getElementById("frontLoginContainer").classList.add("hidden");
-    document.getElementById("mainAppContainer").classList.remove("hidden");
-    gotoTab("home");
-  } else {
-    err.classList.remove("hidden");
-  }
-}
-
-document.getElementById("keyField").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") unlockDashboard();
-});
-
-function gotoTab(tabName) {
-  ["Home", "Features", "Manage"].forEach(name => {
-    document.getElementById("tab" + name).classList.add("hidden");
-    document.getElementById("nav" + name).classList.remove("active");
-  });
-
-  const title = tabName.charAt(0).toUpperCase() + tabName.slice(1);
-  document.getElementById("tab" + title).classList.remove("hidden");
-  document.getElementById("nav" + title).classList.add("active");
-}
-
-function toggleAimLag(cb) {
-  const box = document.getElementById("aimLagExpandArea");
-  const card = document.getElementById("cardAimLag");
-
-  box.classList.toggle("hidden", !cb.checked);
-  card.classList.toggle("active-hifi", cb.checked);
-}
-
-function openHappApp() {
-  window.location.href = "happ://add/trollmodz-lifetime-config";
-}
-
-let taps = 0;
-let tapResetTimer = null;
-
-function handleSecretTap() {
-  taps++;
-  clearTimeout(tapResetTimer);
-
-  tapResetTimer = setTimeout(() => {
-    taps = 0;
-  }, 1600);
-
-  if (taps >= 6) {
-    taps = 0;
-    const pass = prompt("Enter Admin Password:");
-
-    if (pass === ADMIN_PASS) {
-      openConfigModal();
-    } else if (pass !== null) {
-      alert("Incorrect Password!");
+      renderFeatures();
+      loadAdminSettings();
     }
-  }
-}
 
-function openConfigModal() {
-  document.getElementById("inp1").value = cfg.t1;
-  document.getElementById("inp2").value = cfg.t2;
-  document.getElementById("inp3").value = cfg.t3;
-  document.getElementById("inp4").value = cfg.t4;
-  document.getElementById("inp5").value = cfg.t5;
-  document.getElementById("inpSub1").value = cfg.sub1;
-  document.getElementById("inpSub2").value = cfg.sub2;
-  document.getElementById("inp6").value = cfg.t6;
+    // SAVE SETTINGS
+    function saveConfig() {
+      const checkboxes = document.querySelectorAll(
+        "#featureList input[type='checkbox']"
+      );
 
-  document.getElementById("adminPanel").classList.remove("hidden");
-}
+      checkboxes.forEach(input => {
+        config[input.dataset.key + "_enabled"] = input.checked;
+      });
 
-function saveConfig() {
-  cfg = {
-    t1: document.getElementById("inp1").value.trim() || initialConfig.t1,
-    t2: document.getElementById("inp2").value.trim() || initialConfig.t2,
-    t3: document.getElementById("inp3").value.trim() || initialConfig.t3,
-    t4: document.getElementById("inp4").value.trim() || initialConfig.t4,
-    t5: document.getElementById("inp5").value.trim() || initialConfig.t5,
-    sub1: document.getElementById("inpSub1").value.trim() || initialConfig.sub1,
-    sub2: document.getElementById("inpSub2").value.trim() || initialConfig.sub2,
-    t6: document.getElementById("inp6").value.trim() || initialConfig.t6
-  };
+      config.sub1_enabled = document.getElementById("sub1").checked;
+      config.sub2_enabled = document.getElementById("sub2").checked;
 
-  try {
-    localStorage.setItem("troll_v3_store", JSON.stringify(cfg));
-  } catch (e) {
-    alert("Could not save settings in this browser.");
-  }
+      try {
+        localStorage.setItem(
+          "trollModzConfig",
+          JSON.stringify(config)
+        );
 
-  renderAllLabels();
-  closeConfig();
-}
+        updateConfigStatus();
+      } catch (error) {
+        console.error("Unable to save settings:", error);
+      }
+    }
 
-function closeConfig() {
-  document.getElementById("adminPanel").classList.add("hidden");
-}
-</script>
+    // CREATE FEATURE CARDS
+    function renderFeatures() {
+      const featureList = document.getElementById("featureList");
+
+      const features = [
+        { key: "t1", name: config.t1 },
+        { key: "t2", name: config.t2 },
+        { key: "t3", name: config.t3 },
+        { key: "t4", name: config.t4 },
+        { key: "t5", name: config.t5 },
+        { key: "t6", name: config.t6 }
+      ];
+
+      featureList.innerHTML = "";
+
+      features.forEach(feature => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const row = document.createElement("div");
+        row.className = "feature-row";
+
+        const info = document.createElement("div");
+        info.className = "feature-info";
+
+        const name = document.createElement("div");
+        name.className = "feature-name";
+        name.textContent = feature.name;
+
+        const description = document.createElement("div");
+        description.className = "feature-description";
+        description.textContent = featureDescriptions[feature.key] || "";
+
+        info.appendChild(name);
+        info.appendChild(description);
+
+        const label = document.createElement("label");
+        label.className = "switch";
+
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.dataset.key = feature.key;
+        input.checked = Boolean(config[feature.key + "_enabled"]);
+
+        const slider = document.createElement("span");
+        slider.className = "slider";
+
+        input.addEventListener("change", function() {
+          if (feature.key === "t5") {
+            document.getElementById("aimLagExpandArea")
+              .classList.toggle("hidden", !input.checked);
+          }
+
+          saveConfig();
+        });
+
+        label.appendChild(input);
+        label.appendChild(slider);
+
+        row.appendChild(info);
+        row.appendChild(label);
+        card.appendChild(row);
+
+        if (feature.key === "t5") {
+          card.id = "cardAimLag";
+        }
+
+        featureList.appendChild(card);
+      });
+
+      document.getElementById("sub1Label").textContent = config.sub1;
+      document.getElementById("sub2Label").textContent = config.sub2;
+
+      document.getElementById("sub1").checked =
+        Boolean(config.sub1_enabled);
+
+      document.getElementById("sub2").checked =
+        Boolean(config.sub2_enabled);
+
+      document.getElementById("aimLagExpandArea")
+        .classList.toggle(
+          "hidden",
+          !config.t5_enabled
+        );
+    }
+
+    // LOGIN
+    function login() {
+      const enteredKey = document
+        .getElementById("accessKey")
+        .value.trim();
+
+      const error = document.getElementById("loginError");
+
+      if (enteredKey === VALID_KEY) {
+        sessionStorage.setItem("trollModzLoggedIn", "true");
+
+        document.getElementById("loginScreen")
+          .classList.add("hidden");
+
+        document.getElementById("mainApp")
+          .classList.remove("hidden");
+
+        document.getElementById("bottomNav")
+          .classList.remove("hidden");
+
+        loadConfig();
+      } else {
+        error.textContent = "Invalid access key. Please try again.";
+      }
+    }
+
+    document.getElementById("accessKey")
+      .addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+          login();
+        }
+      });
+
+    // PAGE NAVIGATION
+    function showPage(pageId, navId) {
+      document.querySelectorAll(".page").forEach(page => {
+        page.classList.add("hidden");
+      });
+
+      document.getElementById(pageId).classList.remove("hidden");
+
+      document.querySelectorAll(".nav-item").forEach(item => {
+        item.classList.remove("active");
+      });
+
+      document.getElementById(navId).classList.add("active");
+    }
+
+    // LOG OUT
+    function logout() {
+      sessionStorage.removeItem("trollModzLoggedIn");
+
+      document.getElementById("mainApp").classList.add("hidden");
+      document.getElementById("bottomNav").classList.add("hidden");
+      document.getElementById("loginScreen").classList.remove("hidden");
+
+      document.getElementById("accessKey").value = "";
+      document.getElementById("loginError").textContent = "";
+    }
+
+    // HIDDEN ADMIN PANEL: TAP TITLE SIX TIMES
+    function handleTitleTap() {
+      titleTapCount++;
+
+      clearTimeout(titleTapTimer);
+
+      titleTapTimer = setTimeout(function() {
+        titleTapCount = 0;
+      }, 1800);
+
+      if (titleTapCount >= 6) {
+        titleTapCount = 0;
+
+        const password = prompt("Enter admin password:");
+
+        if (password === "admin123") {
+          document.getElementById("adminPanel")
+            .classList.remove("hidden");
+
+          showPage("managePage", "manageNav");
+        } else if (password !== null) {
+          alert("Incorrect admin password.");
+        }
+      }
+    }
+
+    // SAVE ADMIN SETTINGS
+    function saveAdminSettings() {
+      const title = document.getElementById("adminTitle").value.trim();
+      const subtitle = document.getElementById("adminSubtitle").value.trim();
+
+      if (title) {
+        localStorage.setItem("trollModzAdminTitle", title);
+      }
+
+      if (subtitle) {
+        localStorage.setItem("trollModzAdminSubtitle", subtitle);
+      }
+
+      if (title) {
+        document.getElementById("brandTitle").textContent = title;
+      }
+
+      if (subtitle) {
+        document.querySelector(".hero p").textContent = subtitle;
+      }
+
+      document.getElementById("adminMessage").textContent =
+        "Settings saved on this device.";
+    }
+
+    // LOAD ADMIN SETTINGS
+    function loadAdminSettings() {
+      const title = localStorage.getItem("trollModzAdminTitle");
+      const subtitle = localStorage.getItem("trollModzAdminSubtitle");
+
+      if (title) {
+        document.getElementById("adminTitle").value = title;
+      }
+
+      if (subtitle) {
+        document.getElementById("adminSubtitle").value = subtitle;
+      }
+    }
+
+    // CLEAR SAVED SETTINGS
+    function clearSavedConfig() {
+      const confirmed = confirm(
+        "Clear all saved panel settings on this device?"
+      );
+
+      if (!confirmed) return;
+
+      localStorage.removeItem("trollModzConfig");
+
+      config = { ...initialConfig };
+      renderFeatures();
+
+      document.getElementById("adminMessage").textContent =
+        "Saved configuration cleared.";
+    }
+
+    // RESET TO DEFAULT SETTINGS
+    function resetConfig() {
+      const confirmed = confirm(
+        "Reset all feature toggles to their default OFF state?"
+      );
+
+      if (!confirmed) return;
+
+      config = { ...initialConfig };
+
+      Object.keys(config).forEach(key => {
+        if (key.endsWith("_enabled")) {
+          config[key] = false;
+        }
+      });
+
+      localStorage.setItem("trollModzConfig", JSON.stringify(config));
+
+      renderFeatures();
+      updateConfigStatus();
+    }
+
+    // UPDATE CONFIG STATUS
+    function updateConfigStatus() {
+      const status = document.getElementById("configStatus");
+
+      if (status) {
+        status.textContent =
+          "Your preferences are saved locally on this device.";
+      }
+    }
+
+    // ADD SUBSCRIPTION APP TRIGGER
+    // Clipboard + Deep Link Fallback
+    function openHappApp() {
+      const rawUrl =
+        "https://raw.githubusercontent.com/ysijabbs2-dot/troll-modz/main/sub.txt";
+
+      const message = document.getElementById("subscriptionMessage");
+
+      // 1. Copy subscription URL to clipboard
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(rawUrl)
+          .then(() => {
+            if (message) {
+              message.textContent = "Subscription URL copied to clipboard.";
+            }
+          })
+          .catch(error => {
+            console.log("Clipboard copy failed:", error);
+
+            if (message) {
+              message.textContent =
+                "Clipboard copy failed. Trying to open the app...";
+            }
+          });
+      } else if (message) {
+        message.textContent =
+          "Clipboard is unavailable in this browser. Trying to open the app...";
+      }
+
+      // 2. Trigger Happ deep link
+      window.location.href =
+        "happ://add/" + encodeURIComponent(rawUrl);
+    }
+
+    // INITIALIZE
+    window.addEventListener("DOMContentLoaded", function() {
+      if (sessionStorage.getItem("trollModzLoggedIn") === "true") {
+        document.getElementById("loginScreen").classList.add("hidden");
+        document.getElementById("mainApp").classList.remove("hidden");
+        document.getElementById("bottomNav").classList.remove("hidden");
+
+        loadConfig();
+      }
+    });
+  </script>
 
 </body>
   </html>
